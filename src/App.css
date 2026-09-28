@@ -246,11 +246,22 @@ a {
   line-height: 1.78;
 }
 
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  margin-top: 30px;
+}
+
 .project-link {
   display: inline-block;
-  margin-top: 30px;
   padding-bottom: 4px;
   border-bottom: 1px solid var(--line);
+}
+
+.project-link-primary {
+  color: var(--accent);
+  border-color: rgba(155, 135, 245, 0.35);
 }
 
 .project-facts {
@@ -369,6 +380,15 @@ a {
 
   .nav-links a:first-child {
     display: none;
+  }
+
+  .nav-links {
+    gap: 13px;
+  }
+
+  .nav-links a,
+  .nav-links .text-link {
+    font-size: 10px;
   }
 
   .hero {
