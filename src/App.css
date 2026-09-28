@@ -216,13 +216,19 @@ a {
   color: var(--green);
 }
 
-.focus-panel pre {
-  margin: 0;
+.focus-code {
   padding: 32px 24px;
   overflow-x: auto;
 }
 
-.focus-panel code {
+.focus-code > div {
+  min-height: 24px;
+  display: grid;
+  grid-template-columns: 34px max-content;
+  align-items: center;
+}
+
+.focus-code code {
   color: #c8cbd2;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 12px;
@@ -455,7 +461,7 @@ a {
     flex-wrap: wrap;
   }
 
-  .focus-panel code {
+  .focus-code code {
     font-size: 10px;
   }
 
