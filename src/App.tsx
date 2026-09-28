@@ -7,8 +7,8 @@ function App() {
   return (
     <div className="site">
       <PageMeta
-        title="Renan Amador — Desenvolvimento & educação"
-        description="Portfólio de Renan Amador, com foco no projeto de extensão Programando o Futuro: elas na tecnologia."
+        title="Renan Amador"
+        description="Portfólio de Renan Amador. Desenvolvimento web, Linux, educação e o projeto Programando o Futuro: elas na tecnologia."
         canonicalPath="/"
       />
 
@@ -19,17 +19,13 @@ function App() {
       <header className="topbar">
         <nav className="container nav" aria-label="Navegação principal">
           <a className="brand" href="#top">
-            renan<span>.dev</span>
+            renan@portfolio:~$
           </a>
 
           <div className="nav-links">
             <a href="#projeto">projeto</a>
             <a href="#sobre">sobre</a>
-            <a
-              href="https://github.com/renaniii"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href="https://github.com/renaniii" target="_blank" rel="noreferrer">
               github ↗
             </a>
           </div>
@@ -39,135 +35,108 @@ function App() {
       <main id="conteudo">
         <section className="hero container" id="top">
           <div className="hero-copy">
-            <p className="mono-label">// portfolio · 2026</p>
+            <p className="path">~/Projetos/Pessoal/portfolio</p>
 
-            <h1>
-              Código para aprender,
-              <br />
-              <span>criar e compartilhar.</span>
-            </h1>
+            <h1>Oi, eu sou Renan.</h1>
 
             <p className="hero-text">
-              Sou Renan Amador. Desenvolvimento web, Linux e tecnologia com
-              propósito — hoje, com foco em uma experiência de programação para
-              estudantes.
+              Estudo Ciência da Computação e Pedagogia. Gosto de web, Linux e de
+              construir coisas que eu realmente vou usar. Agora, quase toda a
+              minha atenção está em um projeto de extensão que junta tecnologia e
+              educação.
             </p>
 
             <div className="hero-actions">
-              <Link className="primary-link" to="/projetos/programando-o-futuro">
-                ver projeto <span>↗</span>
+              <Link className="text-link strong" to="/projetos/programando-o-futuro">
+                ver o projeto →
               </Link>
-              <a
-                className="quiet-link"
-                href="https://github.com/renaniii"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a className="text-link" href="https://github.com/renaniii" target="_blank" rel="noreferrer">
                 github
               </a>
             </div>
           </div>
 
-          <aside className="focus-panel" aria-label="Projeto atual">
-            <div className="focus-top">
-              <span>current_project.ts</span>
-              <span className="live">● ativo</span>
+          <aside className="terminal" aria-label="O que estou fazendo agora">
+            <div className="terminal-title">
+              <span>terminal</span>
+              <span>fedora</span>
             </div>
 
-            <div className="focus-code" aria-hidden="true">
-              <div>
-                <span className="code-muted">01</span>
-                <code><span className="code-keyword">const</span> foco = {'{'}</code>
-              </div>
-              <div>
-                <span className="code-muted">02</span>
-                <code>&nbsp;&nbsp;nome: <span className="code-string">'Programando o Futuro'</span>,</code>
-              </div>
-              <div>
-                <span className="code-muted">03</span>
-                <code>&nbsp;&nbsp;tema: <span className="code-string">'elas na tecnologia'</span>,</code>
-              </div>
-              <div>
-                <span className="code-muted">04</span>
-                <code>&nbsp;&nbsp;formato: <span className="code-string">'oficina web'</span></code>
-              </div>
-              <div>
-                <span className="code-muted">05</span>
-                <code>{'}'}</code>
-              </div>
-            </div>
-
-            <div className="focus-footer">
-              <span>privacy-first</span>
-              <span>browser-only</span>
-              <span>learning-by-doing</span>
+            <div className="terminal-body">
+              <p><span>renan@loq</span>:~/Projetos$ cat agora.txt</p>
+              <p className="terminal-output">Programando o Futuro: elas na tecnologia</p>
+              <p className="terminal-output muted">3 encontros · navegador · sem instalação</p>
+              <p className="terminal-comment"># tentando fazer programação parecer menos distante</p>
+              <p><span>renan@loq</span>:~/Projetos$ <i className="cursor" /></p>
             </div>
           </aside>
         </section>
 
         <section className="project-section container" id="projeto">
-          <div className="section-line">
-            <span>01</span>
-            <span>PROJETO EM FOCO</span>
-          </div>
+          <div className="section-tag">01 / projeto atual</div>
 
-          <article className="project-feature">
-            <div className="project-main">
-              <p className="project-kind">Projeto de extensão · Educação + Web</p>
-
+          <div className="project-layout">
+            <div>
               <h2>
                 Programando o Futuro:
                 <br />
-                <span>elas na tecnologia.</span>
+                <span>elas na tecnologia</span>
               </h2>
 
               <p className="project-summary">
-                Uma oficina introdutória de programação construída para funcionar
-                diretamente no navegador, com uma experiência simples, prática e
-                consciente sobre privacidade.
+                É meu projeto de extensão. A ideia é fazer uma oficina de
+                programação para alunas do ensino médio usando só os Chromebooks
+                da escola e o navegador. Quero que o primeiro contato com código
+                seja simples, prático e interessante de verdade.
               </p>
 
-              <Link className="case-link" to="/projetos/programando-o-futuro">
-                explorar o case <span>→</span>
+              <Link className="project-link" to="/projetos/programando-o-futuro">
+                abrir o projeto →
               </Link>
             </div>
 
-            <div className="project-notes">
+            <dl className="project-facts">
               <div>
-                <span>01</span>
-                <p>Sem instalação e sem contas obrigatórias.</p>
+                <dt>formato</dt>
+                <dd>3 encontros de 50 min</dd>
               </div>
               <div>
-                <span>02</span>
-                <p>HTML, CSS e JavaScript em uma experiência guiada.</p>
+                <dt>ambiente</dt>
+                <dd>Chromebooks + navegador</dd>
               </div>
               <div>
-                <span>03</span>
-                <p>Experimentar, criar e compartilhar em três etapas.</p>
+                <dt>vou construir</dt>
+                <dd>site, materiais e editor web</dd>
               </div>
-            </div>
-          </article>
+              <div>
+                <dt>status</dt>
+                <dd><span className="status-dot" /> em preparação</dd>
+              </div>
+            </dl>
+          </div>
         </section>
 
         <section className="about-section container" id="sobre">
-          <div className="section-line">
-            <span>02</span>
-            <span>SOBRE</span>
-          </div>
+          <div className="section-tag">02 / sobre</div>
 
-          <div className="about-grid">
-            <h2>Construindo enquanto aprendo.</h2>
+          <div className="about-layout">
+            <h2>Duas áreas que acabaram se encontrando.</h2>
 
             <div className="about-copy">
               <p>
-                Tenho interesse em desenvolvimento web, Linux, open source e
-                inteligência artificial local. Gosto de transformar estudo em
-                coisas que podem ser usadas de verdade.
+                Ciência da Computação e Pedagogia parecem caminhos bem diferentes,
+                mas eu gosto justamente da parte em que uma começa a ajudar a
+                outra. O Programando o Futuro nasceu desse encontro.
               </p>
 
-              <p className="stack-line">
-                React <span>/</span> TypeScript <span>/</span> Vite{' '}
-                <span>/</span> Linux <span>/</span> Git
+              <p>
+                No dia a dia eu uso Fedora, VSCodium, Git e ferramentas locais
+                sempre que faz sentido. Na web, estou trabalhando principalmente
+                com React e TypeScript.
+              </p>
+
+              <p className="small-mono">
+                Fedora / VSCodium / Git / React / TypeScript
               </p>
             </div>
           </div>
@@ -175,8 +144,8 @@ function App() {
       </main>
 
       <footer className="footer container">
-        <span>Renan Amador</span>
-        <span>feito com React + TypeScript</span>
+        <span>Renan Amador · 2026</span>
+        <span>feito por mim, aos poucos.</span>
       </footer>
     </div>
   )
