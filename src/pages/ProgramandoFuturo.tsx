@@ -21,9 +21,14 @@ function ProgramandoFuturo() {
           <Link className="case-brand" to="/">
             renan@portfolio:~$
           </Link>
-          <Link className="case-back" to="/">
-            ← voltar
-          </Link>
+          <div className="case-nav-actions">
+            <Link className="case-workshop-link" to="/oficina">
+              abrir oficina →
+            </Link>
+            <Link className="case-back" to="/">
+              ← voltar
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -42,6 +47,12 @@ function ProgramandoFuturo() {
             ensino médio em três encontros curtos, usando os Chromebooks da
             própria escola e sem depender de instalação de programas.
           </p>
+
+          <div className="case-hero-actions">
+            <Link className="case-workshop-button" to="/oficina">
+              entrar na plataforma da oficina →
+            </Link>
+          </div>
 
           <dl className="case-meta">
             <div>
