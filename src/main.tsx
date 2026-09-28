@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router'
 
 import App from './App'
 import ProgramandoFuturo from './pages/ProgramandoFuturo'
+import Workshop from './pages/Workshop'
 import NotFound from './pages/NotFound'
 import ScrollToTop from './components/ScrollToTop'
 
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           path="/projetos/programando-o-futuro"
           element={<ProgramandoFuturo />}
         />
+        <Route path="/oficina" element={<Workshop />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
