@@ -35,6 +35,7 @@
 
 .case-brand,
 .case-back,
+.case-workshop-link,
 .case-path,
 .case-section-label,
 .case-terminal,
@@ -45,15 +46,27 @@
 }
 
 .case-brand,
-.case-back {
+.case-back,
+.case-workshop-link {
   font-size: 11px;
+}
+
+.case-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.case-workshop-link {
+  color: var(--accent);
 }
 
 .case-back {
   color: var(--muted);
 }
 
-.case-back:hover {
+.case-back:hover,
+.case-workshop-link:hover {
   color: var(--text);
 }
 
@@ -86,6 +99,18 @@
   color: var(--muted);
   font-size: 17px;
   line-height: 1.75;
+}
+
+.case-hero-actions {
+  margin-top: 30px;
+}
+
+.case-workshop-button {
+  display: inline-block;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(155, 135, 245, 0.35);
+  color: var(--accent);
+  font-size: 13px;
 }
 
 .case-meta {
@@ -339,6 +364,14 @@
 
   .case-nav-inner {
     height: 58px;
+  }
+
+  .case-nav-actions {
+    gap: 12px;
+  }
+
+  .case-back {
+    display: none;
   }
 
   .case-hero {
