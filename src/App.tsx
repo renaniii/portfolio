@@ -74,27 +74,28 @@ function App() {
               <span className="live">● ativo</span>
             </div>
 
-            <pre>
-              <code>
-                <span className="code-muted">01</span>{' '}
-                <span className="code-keyword">const</span> foco = {'{'}
-                {'
-'}
-                <span className="code-muted">02</span>   nome:{' '}
-                <span className="code-string">'Programando o Futuro'</span>,
-                {'
-'}
-                <span className="code-muted">03</span>   tema:{' '}
-                <span className="code-string">'elas na tecnologia'</span>,
-                {'
-'}
-                <span className="code-muted">04</span>   formato:{' '}
-                <span className="code-string">'oficina web'</span>
-                {'
-'}
-                <span className="code-muted">05</span> {'}'}
-              </code>
-            </pre>
+            <div className="focus-code" aria-hidden="true">
+              <div>
+                <span className="code-muted">01</span>
+                <code><span className="code-keyword">const</span> foco = {'{'}</code>
+              </div>
+              <div>
+                <span className="code-muted">02</span>
+                <code>&nbsp;&nbsp;nome: <span className="code-string">'Programando o Futuro'</span>,</code>
+              </div>
+              <div>
+                <span className="code-muted">03</span>
+                <code>&nbsp;&nbsp;tema: <span className="code-string">'elas na tecnologia'</span>,</code>
+              </div>
+              <div>
+                <span className="code-muted">04</span>
+                <code>&nbsp;&nbsp;formato: <span className="code-string">'oficina web'</span></code>
+              </div>
+              <div>
+                <span className="code-muted">05</span>
+                <code>{'}'}</code>
+              </div>
+            </div>
 
             <div className="focus-footer">
               <span>privacy-first</span>
