@@ -24,6 +24,7 @@ function App() {
 
           <div className="nav-links">
             <a href="#projeto">projeto</a>
+            <Link to="/oficina">oficina</Link>
             <a href="#sobre">sobre</a>
             <a href="https://github.com/renaniii" target="_blank" rel="noreferrer">
               github ↗
@@ -47,8 +48,11 @@ function App() {
             </p>
 
             <div className="hero-actions">
-              <Link className="text-link strong" to="/projetos/programando-o-futuro">
-                ver o projeto →
+              <Link className="text-link strong" to="/oficina">
+                entrar na oficina →
+              </Link>
+              <Link className="text-link" to="/projetos/programando-o-futuro">
+                ver o projeto
               </Link>
               <a className="text-link" href="https://github.com/renaniii" target="_blank" rel="noreferrer">
                 github
@@ -90,9 +94,14 @@ function App() {
                 seja simples, prático e interessante de verdade.
               </p>
 
-              <Link className="project-link" to="/projetos/programando-o-futuro">
-                abrir o projeto →
-              </Link>
+              <div className="project-actions">
+                <Link className="project-link project-link-primary" to="/oficina">
+                  entrar na plataforma →
+                </Link>
+                <Link className="project-link" to="/projetos/programando-o-futuro">
+                  ler sobre o projeto
+                </Link>
+              </div>
             </div>
 
             <dl className="project-facts">
