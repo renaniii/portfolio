@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router'
 
 import PageMeta from '../components/PageMeta'
@@ -345,17 +345,20 @@ function Workshop() {
 </html>`
   }, [lab.css, lab.html, lab.js])
 
-  const [previewUrl, setPreviewUrl] = useState(
-    () => `data:text/html;charset=utf-8,${encodeURIComponent(preview)}`,
-  )
+  const previewFrame = useRef<HTMLIFrameElement>(null)
+
+  const sendPreview = () => {
+    previewFrame.current?.contentWindow?.postMessage(
+      {
+        type: 'workshop-preview',
+        html: preview,
+      },
+      '*',
+    )
+  }
 
   useEffect(() => {
-    const previewTimer = window.setTimeout(() => {
-      setPreviewUrl(
-        `data:text/html;charset=utf-8,${encodeURIComponent(preview)}`,
-      )
-    }, 180)
-
+    const previewTimer = window.setTimeout(sendPreview, 180)
     return () => window.clearTimeout(previewTimer)
   }, [preview])
 
@@ -609,11 +612,13 @@ function Workshop() {
                 <div className="preview-pane">
                   <div className="preview-label">resultado</div>
                   <iframe
+                    ref={previewFrame}
                     title="Resultado do código"
                     sandbox="allow-scripts"
                     referrerPolicy="no-referrer"
                     allow="camera 'none'; microphone 'none'; geolocation 'none'; fullscreen 'none'"
-                    src={previewUrl}
+                    src="/workshop-preview.html"
+                    onLoad={sendPreview}
                   />
                 </div>
               </div>
