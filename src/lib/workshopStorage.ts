@@ -10,8 +10,22 @@ export type LabDraft = {
   js: string
 }
 
-const PROGRESS_KEY = 'programando-futuro.progress.v1'
-const LAB_PREFIX = 'programando-futuro.lab.v1.'
+type StoredValue<T> = {
+  savedAt: number
+  value: T
+}
+
+const PROGRESS_KEY = 'programando-futuro.progress.v2'
+const LAB_PREFIX = 'programando-futuro.lab.v2.'
+const LEGACY_KEYS = [
+  'programando-futuro.progress.v1',
+  'programando-futuro.lab.v1.base',
+  'programando-futuro.lab.v1.encontro-1',
+  'programando-futuro.lab.v1.html-basico',
+  'programando-futuro.lab.v1.css-basico',
+  'programando-futuro.lab.v1.js-basico',
+]
+const STORAGE_TTL_MS = 12 * 60 * 60 * 1000
 
 const emptyProgress: EncounterOneProgress = {
   started: false,
@@ -22,34 +36,68 @@ const emptyProgress: EncounterOneProgress = {
 const canUseStorage = () =>
   typeof window !== 'undefined' && typeof window.localStorage !== 'undefined'
 
-export const getEncounterOneProgress = (): EncounterOneProgress => {
-  if (!canUseStorage()) return emptyProgress
+const removeLegacyData = () => {
+  if (!canUseStorage()) return
+
+  LEGACY_KEYS.forEach((key) => window.localStorage.removeItem(key))
+}
+
+const readStoredValue = <T,>(key: string): T | null => {
+  if (!canUseStorage()) return null
 
   try {
-    const raw = window.localStorage.getItem(PROGRESS_KEY)
-    if (!raw) return emptyProgress
+    const raw = window.localStorage.getItem(key)
+    if (!raw) return null
 
-    const parsed = JSON.parse(raw) as Partial<EncounterOneProgress>
-    const checklist = Array.isArray(parsed.checklist)
-      ? [0, 1, 2, 3].map((index) => Boolean(parsed.checklist?.[index]))
-      : emptyProgress.checklist
+    const parsed = JSON.parse(raw) as StoredValue<T>
 
-    return {
-      started: Boolean(parsed.started),
-      checklist,
-      completed: Boolean(parsed.completed),
+    if (
+      typeof parsed.savedAt !== 'number' ||
+      Date.now() - parsed.savedAt > STORAGE_TTL_MS
+    ) {
+      window.localStorage.removeItem(key)
+      return null
     }
+
+    return parsed.value ?? null
   } catch {
-    return emptyProgress
+    window.localStorage.removeItem(key)
+    return null
+  }
+}
+
+const writeStoredValue = <T,>(key: string, value: T) => {
+  if (!canUseStorage()) return
+
+  const stored: StoredValue<T> = {
+    savedAt: Date.now(),
+    value,
+  }
+
+  window.localStorage.setItem(key, JSON.stringify(stored))
+}
+
+export const getEncounterOneProgress = (): EncounterOneProgress => {
+  removeLegacyData()
+
+  const parsed = readStoredValue<Partial<EncounterOneProgress>>(PROGRESS_KEY)
+  if (!parsed) return emptyProgress
+
+  const checklist = Array.isArray(parsed.checklist)
+    ? [0, 1, 2, 3].map((index) => Boolean(parsed.checklist?.[index]))
+    : emptyProgress.checklist
+
+  return {
+    started: Boolean(parsed.started),
+    checklist,
+    completed: Boolean(parsed.completed),
   }
 }
 
 export const saveEncounterOneProgress = (
   progress: EncounterOneProgress,
 ): void => {
-  if (!canUseStorage()) return
-
-  window.localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress))
+  writeStoredValue(PROGRESS_KEY, progress)
 }
 
 export const markEncounterOneStarted = (): EncounterOneProgress => {
@@ -72,42 +120,31 @@ export const clearWorkshopProgress = (): void => {
   Object.keys(window.localStorage)
     .filter((key) => key.startsWith(LAB_PREFIX))
     .forEach((key) => window.localStorage.removeItem(key))
+
+  removeLegacyData()
 }
 
 export const getLabDraft = (preset: string): LabDraft | null => {
-  if (!canUseStorage()) return null
+  const parsed = readStoredValue<Partial<LabDraft>>(`${LAB_PREFIX}${preset}`)
+  if (!parsed) return null
 
-  try {
-    const raw = window.localStorage.getItem(`${LAB_PREFIX}${preset}`)
-    if (!raw) return null
-
-    const parsed = JSON.parse(raw) as Partial<LabDraft>
-
-    if (
-      typeof parsed.html !== 'string' ||
-      typeof parsed.css !== 'string' ||
-      typeof parsed.js !== 'string'
-    ) {
-      return null
-    }
-
-    return {
-      html: parsed.html,
-      css: parsed.css,
-      js: parsed.js,
-    }
-  } catch {
+  if (
+    typeof parsed.html !== 'string' ||
+    typeof parsed.css !== 'string' ||
+    typeof parsed.js !== 'string'
+  ) {
     return null
+  }
+
+  return {
+    html: parsed.html,
+    css: parsed.css,
+    js: parsed.js,
   }
 }
 
 export const saveLabDraft = (preset: string, draft: LabDraft): void => {
-  if (!canUseStorage()) return
-
-  window.localStorage.setItem(
-    `${LAB_PREFIX}${preset}`,
-    JSON.stringify(draft),
-  )
+  writeStoredValue(`${LAB_PREFIX}${preset}`, draft)
 }
 
 export const clearLabDraft = (preset: string): void => {
