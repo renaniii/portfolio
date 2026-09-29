@@ -4,14 +4,32 @@ import { Link, useSearchParams } from 'react-router'
 import PageMeta from '../components/PageMeta'
 import './Workshop.css'
 
-const starterHtml = `<main class="card">
+type EditorTab = 'html' | 'css' | 'js'
+type PresetKey = 'base' | 'encontro-1' | 'html-basico' | 'css-basico' | 'js-basico'
+
+type LabPreset = {
+  label: string
+  instruction: string
+  html: string
+  css: string
+  js: string
+  tab: EditorTab
+  filename: string
+}
+
+const presets: Record<PresetKey, LabPreset> = {
+  base: {
+    label: 'projeto livre',
+    instruction: 'Mexa no código, observe o resultado e teste suas ideias.',
+    tab: 'html',
+    filename: 'meu-projeto.html',
+    html: `<main class="card">
   <p class="tag">meu primeiro projeto</p>
   <h1>Olá, mundo!</h1>
   <p>Eu fiz isso com HTML, CSS e JavaScript.</p>
   <button id="botao">clique aqui</button>
-</main>`
-
-const starterCss = `body {
+</main>`,
+    css: `body {
   margin: 0;
   min-height: 100vh;
   display: grid;
@@ -42,24 +60,29 @@ button {
   color: #111018;
   font-weight: 700;
   cursor: pointer;
-}`
-
-const starterJs = `const botao = document.querySelector('#botao')
+}`,
+    js: `const botao = document.querySelector('#botao')
 
 botao.addEventListener('click', () => {
   botao.textContent = 'funcionou ✦'
-})`
+})`,
+  },
 
-const encounterOneHtml = `<main class="cartao">
+  'encontro-1': {
+    label: 'missão 01',
+    instruction:
+      'Mude um texto, uma cor e a mensagem do botão. Depois faça mais uma alteração por conta própria.',
+    tab: 'html',
+    filename: 'missao-01.html',
+    html: `<main class="cartao">
   <p class="etiqueta">meu primeiro site</p>
   <h1>Oi! Eu criei essa página.</h1>
   <p class="texto">Troque esse texto por alguma coisa que você gosta.</p>
 
   <button id="surpresa">mostrar mensagem</button>
   <p id="mensagem"></p>
-</main>`
-
-const encounterOneCss = `body {
+</main>`,
+    css: `body {
   margin: 0;
   min-height: 100vh;
   display: grid;
@@ -104,29 +127,142 @@ button {
 
 #mensagem {
   color: #c8bdf7;
-}`
-
-const encounterOneJs = `const botao = document.querySelector('#surpresa')
+}`,
+    js: `const botao = document.querySelector('#surpresa')
 const mensagem = document.querySelector('#mensagem')
 
 botao.addEventListener('click', () => {
   mensagem.textContent = 'Você acabou de fazer o JavaScript responder ao seu clique :)'
-})`
+})`,
+  },
 
-type EditorTab = 'html' | 'css' | 'js'
+  'html-basico': {
+    label: 'exemplo de HTML',
+    instruction:
+      'Troque o título e o parágrafo. Depois adicione mais uma linha com uma tag <p>.',
+    tab: 'html',
+    filename: 'exemplo-html.html',
+    html: `<main>
+  <h1>Meu primeiro título</h1>
+  <p>Esse texto veio do HTML.</p>
+  <button>um botão</button>
+</main>`,
+    css: `body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #f4f0ff;
+  color: #211b30;
+  font-family: system-ui, sans-serif;
+}
+
+main {
+  width: min(420px, 80vw);
+  padding: 32px;
+}
+
+button {
+  padding: 10px 14px;
+}`,
+    js: '',
+  },
+
+  'css-basico': {
+    label: 'exemplo de CSS',
+    instruction:
+      'Mude background, color e border-radius. Veja cada mudança aparecer na hora.',
+    tab: 'css',
+    filename: 'exemplo-css.html',
+    html: `<main class="caixa">
+  <h1>CSS muda a aparência.</h1>
+  <p>Teste outras cores, tamanhos e formas.</p>
+</main>`,
+    css: `body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #171321;
+  font-family: system-ui, sans-serif;
+}
+
+.caixa {
+  width: min(420px, 80vw);
+  padding: 32px;
+  background: #9b87f5;
+  color: #171321;
+  border-radius: 18px;
+}
+
+h1 {
+  font-size: 32px;
+}`,
+    js: '',
+  },
+
+  'js-basico': {
+    label: 'exemplo de JavaScript',
+    instruction:
+      'Clique no botão e depois troque a frase dentro de textContent.',
+    tab: 'js',
+    filename: 'exemplo-javascript.html',
+    html: `<main>
+  <h1>JavaScript faz coisas acontecerem.</h1>
+  <button id="teste">testar</button>
+  <p id="resposta">Nada aconteceu ainda.</p>
+</main>`,
+    css: `body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #171321;
+  color: #f8f4ff;
+  font-family: system-ui, sans-serif;
+}
+
+main {
+  width: min(430px, 80vw);
+  text-align: center;
+}
+
+button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #a78bfa;
+  color: #171321;
+  font-weight: 700;
+  cursor: pointer;
+}`,
+    js: `const botao = document.querySelector('#teste')
+const resposta = document.querySelector('#resposta')
+
+botao.addEventListener('click', () => {
+  resposta.textContent = 'Funcionou! O JavaScript mudou a página.'
+})`,
+  },
+}
 
 function Workshop() {
   const [searchParams] = useSearchParams()
-  const isEncounterOne = searchParams.get('preset') === 'encontro-1'
+  const presetParam = searchParams.get('preset')
+  const presetKey: PresetKey =
+    presetParam && presetParam in presets ? (presetParam as PresetKey) : 'base'
+  const preset = presets[presetKey]
 
-  const initialHtml = isEncounterOne ? encounterOneHtml : starterHtml
-  const initialCss = isEncounterOne ? encounterOneCss : starterCss
-  const initialJs = isEncounterOne ? encounterOneJs : starterJs
+  const [tab, setTab] = useState<EditorTab>(preset.tab)
+  const [html, setHtml] = useState(preset.html)
+  const [css, setCss] = useState(preset.css)
+  const [js, setJs] = useState(preset.js)
 
-  const [tab, setTab] = useState<EditorTab>('html')
-  const [html, setHtml] = useState(initialHtml)
-  const [css, setCss] = useState(initialCss)
-  const [js, setJs] = useState(initialJs)
+  useEffect(() => {
+    setHtml(preset.html)
+    setCss(preset.css)
+    setJs(preset.js)
+    setTab(preset.tab)
+  }, [preset])
 
   useEffect(() => {
     if (!window.location.hash) return
@@ -135,7 +271,7 @@ function Workshop() {
     window.requestAnimationFrame(() => {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
     })
-  }, [])
+  }, [presetKey])
 
   const preview = useMemo(() => {
     const safeJs = js.replace(/<\/script/gi, '<\\/script')
@@ -166,10 +302,10 @@ function Workshop() {
   }, [html, css, js])
 
   const resetProject = () => {
-    setHtml(initialHtml)
-    setCss(initialCss)
-    setJs(initialJs)
-    setTab('html')
+    setHtml(preset.html)
+    setCss(preset.css)
+    setJs(preset.js)
+    setTab(preset.tab)
   }
 
   const exportProject = () => {
@@ -178,7 +314,7 @@ function Workshop() {
     const link = document.createElement('a')
 
     link.href = url
-    link.download = isEncounterOne ? 'missao-01.html' : 'meu-projeto.html'
+    link.download = preset.filename
     link.click()
 
     URL.revokeObjectURL(url)
@@ -299,14 +435,15 @@ function Workshop() {
               Não tem como “estragar” nada: se ficar confuso, use restaurar.
             </p>
 
-            {isEncounterOne && (
+            {presetKey !== 'base' && (
               <div className="lab-mission">
-                <span>missão 01 carregada</span>
-                <p>
-                  Mude um texto, uma cor e a mensagem do botão. Depois faça mais
-                  uma alteração por conta própria.
-                </p>
-                <Link to="/oficina/encontro-1">ver instruções do encontro ↑</Link>
+                <span>{preset.label} carregado</span>
+                <p>{preset.instruction}</p>
+                {presetKey === 'encontro-1' ? (
+                  <Link to="/oficina/encontro-1">ver encontro ↑</Link>
+                ) : (
+                  <Link to="/oficina/encontro-1#colinha">ver colinha ↑</Link>
+                )}
               </div>
             )}
 
@@ -368,27 +505,31 @@ function Workshop() {
             <article>
               <div>
                 <span>guia</span>
-                <h3>Colinha de HTML</h3>
+                <h3>Colinha do Encontro 1</h3>
               </div>
-              <p>Os elementos que vamos usar durante a oficina.</p>
-              <span className="material-status">em preparação</span>
+              <p>HTML, CSS e JavaScript explicados com exemplos pequenos.</p>
+              <Link className="material-link" to="/oficina/encontro-1#colinha">
+                abrir →
+              </Link>
             </article>
 
             <article>
               <div>
-                <span>guia</span>
-                <h3>Colinha de CSS</h3>
+                <span>atividade</span>
+                <h3>Missão 01</h3>
               </div>
-              <p>Cores, tamanhos, espaçamento e outras mudanças visuais.</p>
-              <span className="material-status">em preparação</span>
+              <p>Personalizar o projeto inicial e testar as primeiras mudanças.</p>
+              <Link className="material-link" to="/oficina?preset=encontro-1#laboratorio">
+                começar →
+              </Link>
             </article>
 
             <article>
               <div>
-                <span>desafios</span>
-                <h3>Missões da oficina</h3>
+                <span>próximos encontros</span>
+                <h3>Mais materiais</h3>
               </div>
-              <p>Pequenos objetivos para seguir sem ficar perdida.</p>
+              <p>Novas colinhas e missões entram aqui conforme os encontros forem montados.</p>
               <span className="material-status">em preparação</span>
             </article>
           </div>
