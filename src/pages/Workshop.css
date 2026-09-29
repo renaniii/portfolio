@@ -458,3 +458,78 @@
     justify-content: center;
   }
 }
+
+
+/* Encontro disponível */
+
+.meeting-card-active {
+  border-color: rgba(155, 135, 245, 0.22) !important;
+}
+
+.meeting-card-locked {
+  opacity: 0.72;
+}
+
+.meeting-open {
+  display: inline-block;
+  margin-top: 22px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(155, 135, 245, 0.35);
+  color: var(--w-purple-2);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 10px;
+}
+
+.meeting-open:hover {
+  color: var(--w-text);
+}
+
+.lab-mission {
+  margin: 0 0 26px;
+  padding: 18px 20px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 18px;
+  align-items: center;
+  border: 1px solid rgba(155, 135, 245, 0.22);
+  background: rgba(155, 135, 245, 0.06);
+}
+
+.lab-mission > span,
+.lab-mission > a {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 9px;
+}
+
+.lab-mission > span {
+  color: var(--w-purple-2);
+  white-space: nowrap;
+}
+
+.lab-mission > p {
+  margin: 0;
+  color: var(--w-muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.lab-mission > a {
+  color: var(--w-muted);
+  white-space: nowrap;
+}
+
+.lab-mission > a:hover {
+  color: var(--w-text);
+}
+
+@media (max-width: 760px) {
+  .lab-mission {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .lab-mission > a,
+  .lab-mission > span {
+    white-space: normal;
+  }
+}
