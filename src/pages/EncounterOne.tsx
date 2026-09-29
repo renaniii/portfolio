@@ -110,6 +110,60 @@ function EncounterOne() {
           </div>
         </section>
 
+        <section className="cheatsheet-section encounter-container" id="colinha">
+          <div className="encounter-section-label">02 / colinha rápida</div>
+
+          <div className="cheatsheet-content">
+            <div className="cheatsheet-intro">
+              <h2>Três ideias para consultar enquanto você mexe.</h2>
+              <p>
+                Não é para decorar. É só um lugar rápido para olhar quando bater a
+                dúvida.
+              </p>
+            </div>
+
+            <div className="cheatsheet-grid">
+              <article>
+                <span className="cheatsheet-language">HTML</span>
+                <h3>O que aparece na página.</h3>
+                <pre><code>{'<h1>Meu título</h1>\n<p>Meu texto</p>'}</code></pre>
+                <p>
+                  Quer mudar uma frase? Normalmente você vai encontrar essa frase
+                  no HTML.
+                </p>
+                <Link to="/oficina?preset=html-basico#laboratorio">
+                  testar HTML →
+                </Link>
+              </article>
+
+              <article>
+                <span className="cheatsheet-language">CSS</span>
+                <h3>Como a página fica.</h3>
+                <pre><code>{'background: #171321;\ncolor: #f8f4ff;'}</code></pre>
+                <p>
+                  Cores, tamanho, espaço e formato ficam principalmente aqui.
+                </p>
+                <Link to="/oficina?preset=css-basico#laboratorio">
+                  testar CSS →
+                </Link>
+              </article>
+
+              <article>
+                <span className="cheatsheet-language">JavaScript</span>
+                <h3>O que acontece.</h3>
+                <pre><code>{'botao.addEventListener(\'click\', () => {\n  resposta.textContent = \'Funcionou!\'\n})'}</code></pre>
+                <p>
+                  O JavaScript pode reagir a um clique e mudar alguma coisa na
+                  página.
+                </p>
+                <Link to="/oficina?preset=js-basico#laboratorio">
+                  testar JavaScript →
+                </Link>
+              </article>
+            </div>
+          </div>
+        </section>
+
         <section className="mission-section">
           <div className="encounter-container mission-grid">
             <div>
@@ -141,7 +195,7 @@ function EncounterOne() {
         </section>
 
         <section className="encounter-section encounter-container">
-          <div className="encounter-section-label">02 / se travar</div>
+          <div className="encounter-section-label">03 / se travar</div>
 
           <div className="help-grid">
             <article>
