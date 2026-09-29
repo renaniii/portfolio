@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { Link, useSearchParams } from 'react-router'
 
 import PageMeta from '../components/PageMeta'
 import './Workshop.css'
@@ -49,13 +50,92 @@ botao.addEventListener('click', () => {
   botao.textContent = 'funcionou ✦'
 })`
 
+const encounterOneHtml = `<main class="cartao">
+  <p class="etiqueta">meu primeiro site</p>
+  <h1>Oi! Eu criei essa página.</h1>
+  <p class="texto">Troque esse texto por alguma coisa que você gosta.</p>
+
+  <button id="surpresa">mostrar mensagem</button>
+  <p id="mensagem"></p>
+</main>`
+
+const encounterOneCss = `body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #171321;
+  color: #f8f4ff;
+  font-family: system-ui, sans-serif;
+}
+
+.cartao {
+  width: min(430px, 80vw);
+  padding: 34px;
+  border: 1px solid #8e79ec;
+  border-radius: 18px;
+  background: #211b30;
+}
+
+.etiqueta {
+  margin: 0 0 14px;
+  color: #b9aaf7;
+  font-size: 12px;
+}
+
+h1 {
+  margin: 0 0 14px;
+}
+
+.texto {
+  line-height: 1.6;
+}
+
+button {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 9px;
+  background: #a78bfa;
+  color: #171321;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#mensagem {
+  color: #c8bdf7;
+}`
+
+const encounterOneJs = `const botao = document.querySelector('#surpresa')
+const mensagem = document.querySelector('#mensagem')
+
+botao.addEventListener('click', () => {
+  mensagem.textContent = 'Você acabou de fazer o JavaScript responder ao seu clique :)'
+})`
+
 type EditorTab = 'html' | 'css' | 'js'
 
 function Workshop() {
+  const [searchParams] = useSearchParams()
+  const isEncounterOne = searchParams.get('preset') === 'encontro-1'
+
+  const initialHtml = isEncounterOne ? encounterOneHtml : starterHtml
+  const initialCss = isEncounterOne ? encounterOneCss : starterCss
+  const initialJs = isEncounterOne ? encounterOneJs : starterJs
+
   const [tab, setTab] = useState<EditorTab>('html')
-  const [html, setHtml] = useState(starterHtml)
-  const [css, setCss] = useState(starterCss)
-  const [js, setJs] = useState(starterJs)
+  const [html, setHtml] = useState(initialHtml)
+  const [css, setCss] = useState(initialCss)
+  const [js, setJs] = useState(initialJs)
+
+  useEffect(() => {
+    if (!window.location.hash) return
+
+    const id = window.location.hash.slice(1)
+    window.requestAnimationFrame(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    })
+  }, [])
 
   const preview = useMemo(() => {
     const safeJs = js.replace(/<\/script/gi, '<\\/script')
@@ -86,9 +166,9 @@ function Workshop() {
   }, [html, css, js])
 
   const resetProject = () => {
-    setHtml(starterHtml)
-    setCss(starterCss)
-    setJs(starterJs)
+    setHtml(initialHtml)
+    setCss(initialCss)
+    setJs(initialJs)
     setTab('html')
   }
 
@@ -98,7 +178,7 @@ function Workshop() {
     const link = document.createElement('a')
 
     link.href = url
-    link.download = 'meu-projeto.html'
+    link.download = isEncounterOne ? 'missao-01.html' : 'meu-projeto.html'
     link.click()
 
     URL.revokeObjectURL(url)
@@ -167,22 +247,25 @@ function Workshop() {
           </div>
 
           <div className="meeting-cards">
-            <article>
+            <article className="meeting-card-active">
               <span className="meeting-number">01</span>
               <div>
-                <p>primeiro contato</p>
+                <p>primeiro contato · disponível</p>
                 <h3>Experimentar</h3>
                 <span>
                   Mudar coisas prontas, ver o resultado e entender o que o código
                   está fazendo.
                 </span>
+                <Link className="meeting-open" to="/oficina/encontro-1">
+                  abrir encontro 01 →
+                </Link>
               </div>
             </article>
 
-            <article>
+            <article className="meeting-card-locked">
               <span className="meeting-number">02</span>
               <div>
-                <p>mão na massa</p>
+                <p>mão na massa · em preparação</p>
                 <h3>Criar</h3>
                 <span>
                   Juntar HTML, CSS e JavaScript para montar um projeto próprio.
@@ -190,10 +273,10 @@ function Workshop() {
               </div>
             </article>
 
-            <article>
+            <article className="meeting-card-locked">
               <span className="meeting-number">03</span>
               <div>
-                <p>acabamento</p>
+                <p>acabamento · em preparação</p>
                 <h3>Compartilhar</h3>
                 <span>
                   Ajustar o projeto, entender as escolhas e mostrar o que foi
@@ -215,6 +298,17 @@ function Workshop() {
               Mude o código do lado esquerdo. O resultado aparece do lado direito.
               Não tem como “estragar” nada: se ficar confuso, use restaurar.
             </p>
+
+            {isEncounterOne && (
+              <div className="lab-mission">
+                <span>missão 01 carregada</span>
+                <p>
+                  Mude um texto, uma cor e a mensagem do botão. Depois faça mais
+                  uma alteração por conta própria.
+                </p>
+                <Link to="/oficina/encontro-1">ver instruções do encontro ↑</Link>
+              </div>
+            )}
 
             <div className="lab-window">
               <div className="lab-toolbar">
