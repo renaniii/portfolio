@@ -232,13 +232,7 @@ function EncounterOne() {
 
               <div className="mission-progress">
                 <span>{completedSteps}/{missionItems.length}</span>
-                <div>
-                  <i
-                    style={{
-                      width: `${(completedSteps / missionItems.length) * 100}%`,
-                    }}
-                  />
-                </div>
+                <progress value={completedSteps} max={missionItems.length} />
               </div>
             </div>
 
