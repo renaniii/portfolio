@@ -237,7 +237,10 @@ function EducatorArea() {
 
       <footer className="educator-footer educator-container">
         <span>Programando o Futuro · apoio do educador</span>
-        <Link to="/oficina/privacidade">privacidade</Link>
+        <div className="educator-footer-actions">
+          <Link to="/oficina/privacidade">privacidade</Link>
+          <a href="/oficina/educador?logout=1">sair</a>
+        </div>
       </footer>
     </div>
   )
