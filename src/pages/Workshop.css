@@ -643,3 +643,43 @@
     display: none;
   }
 }
+
+
+/* Estabilidade do laboratório e links de apoio */
+
+.editor-pane textarea {
+  white-space: pre;
+  overflow: auto;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.preview-pane iframe {
+  display: block;
+}
+
+.workshop-footer-links {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.workshop-footer-links a {
+  color: var(--w-dim);
+}
+
+.workshop-footer-links a:hover {
+  color: var(--w-text);
+}
+
+@media (max-width: 620px) {
+  .workshop-footer-links {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .workshop-nav nav a:last-child {
+    display: none;
+  }
+}
