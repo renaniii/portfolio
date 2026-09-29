@@ -533,3 +533,14 @@
     white-space: normal;
   }
 }
+
+
+.material-link {
+  color: var(--w-purple-2);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 9px;
+}
+
+.material-link:hover {
+  color: var(--w-text);
+}
