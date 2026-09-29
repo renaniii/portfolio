@@ -544,3 +544,102 @@
 .material-link:hover {
   color: var(--w-text);
 }
+
+
+/* Progresso e salvamento local */
+
+.local-progress {
+  min-height: 72px;
+  padding-block: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border-top: 1px solid var(--w-line);
+  border-bottom: 1px solid var(--w-line);
+}
+
+.local-progress span,
+.autosave-label,
+.material-complete,
+.local-data-controls button {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.local-progress span {
+  color: var(--w-dim);
+  font-size: 9px;
+}
+
+.local-progress p {
+  margin: 5px 0 0;
+  color: var(--w-muted);
+  font-size: 12px;
+}
+
+.local-progress > a {
+  color: var(--w-purple-2);
+  font-size: 11px;
+}
+
+.autosave-label {
+  display: inline-flex;
+  align-items: center;
+  color: var(--w-green);
+  font-size: 8px;
+}
+
+.autosave-label::before {
+  content: '●';
+  margin-right: 6px;
+}
+
+.material-complete {
+  color: var(--w-green);
+  font-size: 9px;
+}
+
+.local-data-controls {
+  margin-top: 42px;
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border-top: 1px solid var(--w-line);
+}
+
+.local-data-controls p {
+  max-width: 640px;
+  margin: 0;
+  color: var(--w-dim);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.local-data-controls button {
+  flex: 0 0 auto;
+  padding: 8px 0;
+  border: 0;
+  border-bottom: 1px solid var(--w-line);
+  background: transparent;
+  color: var(--w-dim);
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.local-data-controls button:hover {
+  color: var(--w-text);
+}
+
+@media (max-width: 620px) {
+  .local-progress,
+  .local-data-controls {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .autosave-label {
+    display: none;
+  }
+}
