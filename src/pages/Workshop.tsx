@@ -293,11 +293,15 @@ function Workshop() {
   useEffect(() => {
     if (lab.presetKey !== presetKey) return
 
-    saveLabDraft(presetKey, {
-      html: lab.html,
-      css: lab.css,
-      js: lab.js,
-    })
+    const saveTimer = window.setTimeout(() => {
+      saveLabDraft(presetKey, {
+        html: lab.html,
+        css: lab.css,
+        js: lab.js,
+      })
+    }, 350)
+
+    return () => window.clearTimeout(saveTimer)
   }, [lab, presetKey])
 
   useEffect(() => {
@@ -341,10 +345,19 @@ function Workshop() {
 </html>`
   }, [lab.css, lab.html, lab.js])
 
-  const previewUrl = useMemo(
+  const [previewUrl, setPreviewUrl] = useState(
     () => `data:text/html;charset=utf-8,${encodeURIComponent(preview)}`,
-    [preview],
   )
+
+  useEffect(() => {
+    const previewTimer = window.setTimeout(() => {
+      setPreviewUrl(
+        `data:text/html;charset=utf-8,${encodeURIComponent(preview)}`,
+      )
+    }, 180)
+
+    return () => window.clearTimeout(previewTimer)
+  }, [preview])
 
   const resetProject = () => {
     clearLabDraft(presetKey)
@@ -417,6 +430,7 @@ function Workshop() {
             <a href="#encontros">encontros</a>
             <a href="#laboratorio">laboratório</a>
             <a href="#materiais">materiais</a>
+            <Link to="/oficina/educador">educador</Link>
           </nav>
         </div>
       </header>
@@ -536,8 +550,9 @@ function Workshop() {
             </div>
 
             <p className="lab-intro">
-              Mude o código do lado esquerdo. O resultado aparece do lado direito.
-              Suas alterações ficam salvas somente neste navegador.
+              Mude o código do lado esquerdo. O resultado aparece do lado direito
+              depois de uma pausa curtinha, para o editor ficar mais estável nos
+              Chromebooks. Suas alterações ficam salvas somente neste navegador.
             </p>
 
             {presetKey !== 'base' && (
@@ -586,6 +601,7 @@ function Workshop() {
                     spellCheck={false}
                     autoComplete="off"
                     autoCapitalize="off"
+                    wrap="off"
                     aria-label={`Código ${tab.toUpperCase()}`}
                   />
                 </label>
@@ -670,7 +686,10 @@ function Workshop() {
 
       <footer className="workshop-footer workshop-container">
         <span>Programando o Futuro · 2026</span>
-        <Link to="/oficina/privacidade">privacidade</Link>
+        <div className="workshop-footer-links">
+          <Link to="/oficina/educador">apoio do educador</Link>
+          <Link to="/oficina/privacidade">privacidade</Link>
+        </div>
         <span>sem login · dados locais · direto no navegador</span>
       </footer>
     </div>
