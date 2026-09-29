@@ -1,9 +1,61 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 
 import PageMeta from '../components/PageMeta'
+import {
+  getEncounterOneProgress,
+  markEncounterOneStarted,
+  saveEncounterOneProgress,
+} from '../lib/workshopStorage'
 import './EncounterOne.css'
 
+const missionItems = [
+  'mude o título',
+  'escolha outra cor',
+  'altere a mensagem do botão',
+  'faça mais uma mudança por conta própria',
+]
+
 function EncounterOne() {
+  const [progress, setProgress] = useState(getEncounterOneProgress)
+
+  useEffect(() => {
+    const next = markEncounterOneStarted()
+    setProgress(next)
+  }, [])
+
+  const completedSteps = progress.checklist.filter(Boolean).length
+  const missionReady = completedSteps === missionItems.length
+
+  const toggleMissionItem = (index: number) => {
+    setProgress((current) => {
+      const checklist = [...current.checklist]
+      checklist[index] = !checklist[index]
+
+      const next = {
+        started: true,
+        checklist,
+        completed: current.completed && checklist.every(Boolean),
+      }
+
+      saveEncounterOneProgress(next)
+      return next
+    })
+  }
+
+  const completeEncounter = () => {
+    if (!missionReady) return
+
+    const next = {
+      ...progress,
+      started: true,
+      completed: true,
+    }
+
+    saveEncounterOneProgress(next)
+    setProgress(next)
+  }
+
   return (
     <div className="encounter-page">
       <PageMeta
@@ -17,9 +69,17 @@ function EncounterOne() {
           <Link className="encounter-brand" to="/oficina">
             Programando o Futuro
           </Link>
-          <Link className="encounter-back" to="/oficina">
-            ← oficina
-          </Link>
+
+          <div className="encounter-nav-right">
+            <span className={progress.completed ? 'progress-done' : ''}>
+              {progress.completed
+                ? '✓ concluído'
+                : `${completedSteps}/${missionItems.length} da missão`}
+            </span>
+            <Link className="encounter-back" to="/oficina">
+              ← oficina
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -169,6 +229,17 @@ function EncounterOne() {
             <div>
               <p className="encounter-path">~/missao-01</p>
               <h2>Faça esse projeto deixar de ser o meu exemplo e virar o seu.</h2>
+
+              <div className="mission-progress">
+                <span>{completedSteps}/{missionItems.length}</span>
+                <div>
+                  <i
+                    style={{
+                      width: `${(completedSteps / missionItems.length) * 100}%`,
+                    }}
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="mission-copy">
@@ -178,11 +249,22 @@ function EncounterOne() {
               </p>
 
               <div className="mission-checks">
-                <span>□ mude o título</span>
-                <span>□ escolha outra cor</span>
-                <span>□ altere a mensagem do botão</span>
-                <span>□ faça mais uma mudança por conta própria</span>
+                {missionItems.map((item, index) => (
+                  <label key={item}>
+                    <input
+                      type="checkbox"
+                      checked={Boolean(progress.checklist[index])}
+                      onChange={() => toggleMissionItem(index)}
+                    />
+                    <span>{item}</span>
+                  </label>
+                ))}
               </div>
+
+              <p className="local-note">
+                Esse progresso fica salvo somente neste navegador. Nenhum nome ou
+                conta é necessário.
+              </p>
 
               <Link
                 className="mission-button"
@@ -220,19 +302,48 @@ function EncounterOne() {
 
         <section className="encounter-end encounter-container">
           <div>
-            <span>fim do encontro</span>
-            <h2>Se você mudou o código e viu a tela responder, já começou.</h2>
+            <span>{progress.completed ? 'encontro concluído ✓' : 'fim do encontro'}</span>
+            <h2>
+              {progress.completed
+                ? 'Você terminou o primeiro encontro.'
+                : 'Se você mudou o código e viu a tela responder, já começou.'}
+            </h2>
+
+            {!progress.completed && (
+              <p className="completion-hint">
+                {missionReady
+                  ? 'Missão pronta. Agora você pode concluir o encontro.'
+                  : `Complete os ${missionItems.length} itens da Missão 01 para finalizar.`}
+              </p>
+            )}
           </div>
 
-          <Link to="/oficina?preset=encontro-1#laboratorio">
-            voltar ao laboratório →
-          </Link>
+          <div className="encounter-end-actions">
+            {!progress.completed && (
+              <button
+                className="complete-button"
+                type="button"
+                disabled={!missionReady}
+                onClick={completeEncounter}
+              >
+                concluir encontro 01
+              </button>
+            )}
+
+            {progress.completed ? (
+              <Link to="/oficina">voltar para a oficina →</Link>
+            ) : (
+              <Link to="/oficina?preset=encontro-1#laboratorio">
+                voltar ao laboratório →
+              </Link>
+            )}
+          </div>
         </section>
       </main>
 
       <footer className="encounter-footer encounter-container">
         <span>Programando o Futuro · Encontro 01</span>
-        <span>sem login · direto no navegador</span>
+        <span>progresso local · sem login</span>
       </footer>
     </div>
   )
