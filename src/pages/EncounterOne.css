@@ -367,3 +367,115 @@
     justify-content: center;
   }
 }
+
+
+/* Colinha rápida */
+
+.cheatsheet-section {
+  padding-block: 110px;
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 70px;
+  border-top: 1px solid var(--e-line);
+}
+
+.cheatsheet-intro {
+  margin-bottom: 36px;
+}
+
+.cheatsheet-intro h2 {
+  max-width: 720px;
+  margin: 0;
+  font-size: clamp(2.5rem, 4.8vw, 4.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  font-weight: 540;
+}
+
+.cheatsheet-intro p {
+  max-width: 620px;
+  margin: 20px 0 0;
+  color: var(--e-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.cheatsheet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.cheatsheet-grid article {
+  min-height: 330px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--e-line);
+  background: var(--e-surface);
+}
+
+.cheatsheet-language {
+  color: var(--e-purple);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 9px;
+}
+
+.cheatsheet-grid h3 {
+  margin: 28px 0 16px;
+  font-size: 20px;
+  font-weight: 520;
+}
+
+.cheatsheet-grid pre {
+  margin: 0;
+  padding: 14px;
+  overflow-x: auto;
+  border: 1px solid var(--e-line);
+  background: #0a0910;
+}
+
+.cheatsheet-grid code {
+  color: #ddd8e8;
+  font: 10px/1.7 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.cheatsheet-grid article > p {
+  margin: 16px 0 0;
+  color: var(--e-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.cheatsheet-grid article > a {
+  margin-top: auto;
+  padding-top: 22px;
+  color: var(--e-purple-2);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 10px;
+}
+
+.cheatsheet-grid article > a:hover {
+  color: var(--e-text);
+}
+
+@media (max-width: 860px) {
+  .cheatsheet-section {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+
+  .cheatsheet-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cheatsheet-grid article {
+    min-height: 270px;
+  }
+}
+
+@media (max-width: 620px) {
+  .cheatsheet-section {
+    padding-block: 86px;
+  }
+}
