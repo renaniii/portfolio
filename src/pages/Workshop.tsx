@@ -670,6 +670,7 @@ function Workshop() {
 
       <footer className="workshop-footer workshop-container">
         <span>Programando o Futuro · 2026</span>
+        <Link to="/oficina/privacidade">privacidade</Link>
         <span>sem login · dados locais · direto no navegador</span>
       </footer>
     </div>
