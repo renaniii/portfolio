@@ -479,3 +479,127 @@
     padding-block: 86px;
   }
 }
+
+
+/* Progresso local */
+
+.encounter-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.encounter-nav-right > span {
+  color: var(--e-dim);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 9px;
+}
+
+.encounter-nav-right > span.progress-done {
+  color: #79d7a5;
+}
+
+.mission-progress {
+  margin-top: 34px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  max-width: 390px;
+}
+
+.mission-progress > span {
+  min-width: 28px;
+  color: var(--e-purple-2);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 9px;
+}
+
+.mission-progress > div {
+  flex: 1;
+  height: 4px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mission-progress i {
+  display: block;
+  height: 100%;
+  background: var(--e-purple);
+  transition: width 180ms ease;
+}
+
+.mission-checks label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.mission-checks input {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  accent-color: var(--e-purple);
+}
+
+.mission-checks label:has(input:checked) span {
+  color: var(--e-text);
+}
+
+.local-note {
+  margin: 16px 0 0 !important;
+  color: var(--e-dim) !important;
+  font: 9px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace !important;
+}
+
+.completion-hint {
+  max-width: 620px;
+  margin: 20px 0 0;
+  color: var(--e-muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.encounter-end-actions {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.encounter-end-actions > a {
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--e-line);
+  color: var(--e-purple-2);
+  font-size: 12px;
+}
+
+.complete-button {
+  min-height: 40px;
+  padding-inline: 14px;
+  border: 1px solid rgba(155, 135, 245, 0.28);
+  background: rgba(155, 135, 245, 0.1);
+  color: var(--e-purple-2);
+  font: 10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  cursor: pointer;
+}
+
+.complete-button:disabled {
+  border-color: var(--e-line);
+  background: transparent;
+  color: var(--e-dim);
+  cursor: not-allowed;
+}
+
+@media (max-width: 620px) {
+  .encounter-nav-right > span {
+    display: none;
+  }
+
+  .encounter-end-actions {
+    width: 100%;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
