@@ -430,7 +430,7 @@ function Workshop() {
             <a href="#encontros">encontros</a>
             <a href="#laboratorio">laboratório</a>
             <a href="#materiais">materiais</a>
-            <Link to="/oficina/educador">educador</Link>
+            <a href="/oficina/educador">educador</a>
           </nav>
         </div>
       </header>
@@ -687,7 +687,7 @@ function Workshop() {
       <footer className="workshop-footer workshop-container">
         <span>Programando o Futuro · 2026</span>
         <div className="workshop-footer-links">
-          <Link to="/oficina/educador">apoio do educador</Link>
+          <a href="/oficina/educador">apoio do educador</a>
           <Link to="/oficina/privacidade">privacidade</Link>
         </div>
         <span>sem login · dados locais · direto no navegador</span>
