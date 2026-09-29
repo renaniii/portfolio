@@ -7,6 +7,7 @@ import ProgramandoFuturo from './pages/ProgramandoFuturo'
 import Workshop from './pages/Workshop'
 import EncounterOne from './pages/EncounterOne'
 import WorkshopPrivacy from './pages/WorkshopPrivacy'
+import EducatorArea from './pages/EducatorArea'
 import NotFound from './pages/NotFound'
 import ScrollToTop from './components/ScrollToTop'
 
@@ -25,6 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/oficina" element={<Workshop />} />
         <Route path="/oficina/encontro-1" element={<EncounterOne />} />
         <Route path="/oficina/privacidade" element={<WorkshopPrivacy />} />
+        <Route path="/oficina/educador" element={<EducatorArea />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
