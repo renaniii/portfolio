@@ -514,18 +514,24 @@
   font-size: 9px;
 }
 
-.mission-progress > div {
+.mission-progress progress {
   flex: 1;
   height: 4px;
-  overflow: hidden;
+  border: 0;
+  appearance: none;
   background: rgba(255, 255, 255, 0.08);
 }
 
-.mission-progress i {
-  display: block;
-  height: 100%;
+.mission-progress progress::-webkit-progress-bar {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mission-progress progress::-webkit-progress-value {
   background: var(--e-purple);
-  transition: width 180ms ease;
+}
+
+.mission-progress progress::-moz-progress-bar {
+  background: var(--e-purple);
 }
 
 .mission-checks label {
