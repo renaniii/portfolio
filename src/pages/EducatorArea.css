@@ -343,3 +343,18 @@
     align-items: flex-start;
   }
 }
+
+
+.educator-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+@media (max-width: 620px) {
+  .educator-footer-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
