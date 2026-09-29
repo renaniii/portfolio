@@ -337,6 +337,7 @@ function EncounterOne() {
 
       <footer className="encounter-footer encounter-container">
         <span>Programando o Futuro · Encontro 01</span>
+        <Link to="/oficina/privacidade">privacidade</Link>
         <span>progresso local · sem login</span>
       </footer>
     </div>
