@@ -256,8 +256,8 @@ function EncounterOne() {
               </div>
 
               <p className="local-note">
-                Esse progresso fica salvo somente neste navegador. Nenhum nome ou
-                conta é necessário.
+                Esse progresso fica salvo somente neste navegador por até 12
+                horas. Nenhum nome ou conta é necessário.
               </p>
 
               <Link
