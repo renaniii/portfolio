@@ -317,6 +317,10 @@ function Workshop() {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; connect-src 'none'; font-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; form-action 'none'; base-uri 'none'"
+  />
   <style>${lab.css}</style>
 </head>
 <body>
@@ -336,6 +340,11 @@ function Workshop() {
 </body>
 </html>`
   }, [lab.css, lab.html, lab.js])
+
+  const previewUrl = useMemo(
+    () => `data:text/html;charset=utf-8,${encodeURIComponent(preview)}`,
+    [preview],
+  )
 
   const resetProject = () => {
     clearLabDraft(presetKey)
@@ -575,6 +584,8 @@ function Workshop() {
                     value={currentValue}
                     onChange={(event) => setCurrentValue(event.target.value)}
                     spellCheck={false}
+                    autoComplete="off"
+                    autoCapitalize="off"
                     aria-label={`Código ${tab.toUpperCase()}`}
                   />
                 </label>
@@ -584,7 +595,9 @@ function Workshop() {
                   <iframe
                     title="Resultado do código"
                     sandbox="allow-scripts"
-                    srcDoc={preview}
+                    referrerPolicy="no-referrer"
+                    allow="camera 'none'; microphone 'none'; geolocation 'none'; fullscreen 'none'"
+                    src={previewUrl}
                   />
                 </div>
               </div>
@@ -644,8 +657,9 @@ function Workshop() {
 
           <div className="local-data-controls">
             <p>
-              Progresso e código ficam apenas neste navegador. Use esta opção se
-              quiser limpar o Chromebook ao terminar.
+              Progresso e código ficam apenas neste navegador e expiram
+              automaticamente após 12 horas. Use esta opção se quiser limpar o
+              Chromebook antes disso.
             </p>
             <button type="button" onClick={clearLocalData}>
               apagar dados deste navegador
