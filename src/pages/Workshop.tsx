@@ -2,6 +2,13 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router'
 
 import PageMeta from '../components/PageMeta'
+import {
+  clearLabDraft,
+  clearWorkshopProgress,
+  getEncounterOneProgress,
+  getLabDraft,
+  saveLabDraft,
+} from '../lib/workshopStorage'
 import './Workshop.css'
 
 type EditorTab = 'html' | 'css' | 'js'
@@ -15,6 +22,13 @@ type LabPreset = {
   js: string
   tab: EditorTab
   filename: string
+}
+
+type LabState = {
+  presetKey: PresetKey
+  html: string
+  css: string
+  js: string
 }
 
 const presets: Record<PresetKey, LabPreset> = {
@@ -245,6 +259,18 @@ botao.addEventListener('click', () => {
   },
 }
 
+const loadLabState = (presetKey: PresetKey): LabState => {
+  const preset = presets[presetKey]
+  const draft = getLabDraft(presetKey)
+
+  return {
+    presetKey,
+    html: draft?.html ?? preset.html,
+    css: draft?.css ?? preset.css,
+    js: draft?.js ?? preset.js,
+  }
+}
+
 function Workshop() {
   const [searchParams] = useSearchParams()
   const presetParam = searchParams.get('preset')
@@ -253,16 +279,26 @@ function Workshop() {
   const preset = presets[presetKey]
 
   const [tab, setTab] = useState<EditorTab>(preset.tab)
-  const [html, setHtml] = useState(preset.html)
-  const [css, setCss] = useState(preset.css)
-  const [js, setJs] = useState(preset.js)
+  const [lab, setLab] = useState<LabState>(() => loadLabState(presetKey))
+  const [progress, setProgress] = useState(getEncounterOneProgress)
 
   useEffect(() => {
-    setHtml(preset.html)
-    setCss(preset.css)
-    setJs(preset.js)
+    if (lab.presetKey === presetKey) return
+
+    const next = loadLabState(presetKey)
+    setLab(next)
     setTab(preset.tab)
-  }, [preset])
+  }, [lab.presetKey, preset, presetKey])
+
+  useEffect(() => {
+    if (lab.presetKey !== presetKey) return
+
+    saveLabDraft(presetKey, {
+      html: lab.html,
+      css: lab.css,
+      js: lab.js,
+    })
+  }, [lab, presetKey])
 
   useEffect(() => {
     if (!window.location.hash) return
@@ -274,17 +310,17 @@ function Workshop() {
   }, [presetKey])
 
   const preview = useMemo(() => {
-    const safeJs = js.replace(/<\/script/gi, '<\\/script')
+    const safeJs = lab.js.replace(/<\/script/gi, '<\\/script')
 
     return `<!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>${css}</style>
+  <style>${lab.css}</style>
 </head>
 <body>
-  ${html}
+  ${lab.html}
   <script>
     try {
       ${safeJs}
@@ -299,12 +335,16 @@ function Workshop() {
   <\/script>
 </body>
 </html>`
-  }, [html, css, js])
+  }, [lab.css, lab.html, lab.js])
 
   const resetProject = () => {
-    setHtml(preset.html)
-    setCss(preset.css)
-    setJs(preset.js)
+    clearLabDraft(presetKey)
+    setLab({
+      presetKey,
+      html: preset.html,
+      css: preset.css,
+      js: preset.js,
+    })
     setTab(preset.tab)
   }
 
@@ -320,9 +360,35 @@ function Workshop() {
     URL.revokeObjectURL(url)
   }
 
-  const currentValue = tab === 'html' ? html : tab === 'css' ? css : js
-  const setCurrentValue =
-    tab === 'html' ? setHtml : tab === 'css' ? setCss : setJs
+  const clearLocalData = () => {
+    const confirmed = window.confirm(
+      'Apagar o progresso e os códigos salvos neste navegador?',
+    )
+
+    if (!confirmed) return
+
+    clearWorkshopProgress()
+    setProgress(getEncounterOneProgress())
+    setLab({
+      presetKey,
+      html: preset.html,
+      css: preset.css,
+      js: preset.js,
+    })
+    setTab(preset.tab)
+  }
+
+  const currentValue =
+    tab === 'html' ? lab.html : tab === 'css' ? lab.css : lab.js
+
+  const setCurrentValue = (value: string) => {
+    setLab((current) => ({
+      ...current,
+      [tab]: value,
+    }))
+  }
+
+  const completedSteps = progress.checklist.filter(Boolean).length
 
   return (
     <div className="workshop-page">
@@ -376,6 +442,24 @@ function Workshop() {
           </aside>
         </section>
 
+        {progress.started && (
+          <section className="local-progress workshop-container">
+            <div>
+              <span>progresso neste navegador</span>
+              <p>
+                Encontro 01 ·{' '}
+                {progress.completed
+                  ? 'concluído ✓'
+                  : `${completedSteps}/4 itens da missão`}
+              </p>
+            </div>
+
+            <Link to="/oficina/encontro-1">
+              {progress.completed ? 'rever encontro →' : 'continuar →'}
+            </Link>
+          </section>
+        )}
+
         <section className="workshop-section workshop-container" id="encontros">
           <div className="workshop-section-head">
             <span>01</span>
@@ -384,16 +468,28 @@ function Workshop() {
 
           <div className="meeting-cards">
             <article className="meeting-card-active">
-              <span className="meeting-number">01</span>
+              <span className="meeting-number">
+                {progress.completed ? '✓' : '01'}
+              </span>
               <div>
-                <p>primeiro contato · disponível</p>
+                <p>
+                  {progress.completed
+                    ? 'concluído neste navegador'
+                    : progress.started
+                      ? `${completedSteps}/4 da missão · em andamento`
+                      : 'primeiro contato · disponível'}
+                </p>
                 <h3>Experimentar</h3>
                 <span>
                   Mudar coisas prontas, ver o resultado e entender o que o código
                   está fazendo.
                 </span>
                 <Link className="meeting-open" to="/oficina/encontro-1">
-                  abrir encontro 01 →
+                  {progress.completed
+                    ? 'rever encontro 01 →'
+                    : progress.started
+                      ? 'continuar encontro 01 →'
+                      : 'abrir encontro 01 →'}
                 </Link>
               </div>
             </article>
@@ -432,7 +528,7 @@ function Workshop() {
 
             <p className="lab-intro">
               Mude o código do lado esquerdo. O resultado aparece do lado direito.
-              Não tem como “estragar” nada: se ficar confuso, use restaurar.
+              Suas alterações ficam salvas somente neste navegador.
             </p>
 
             {presetKey !== 'base' && (
@@ -464,6 +560,7 @@ function Workshop() {
                 </div>
 
                 <div className="lab-actions">
+                  <span className="autosave-label">salvo localmente</span>
                   <button onClick={resetProject}>restaurar</button>
                   <button className="export-button" onClick={exportProject}>
                     salvar .html
@@ -518,10 +615,21 @@ function Workshop() {
                 <span>atividade</span>
                 <h3>Missão 01</h3>
               </div>
-              <p>Personalizar o projeto inicial e testar as primeiras mudanças.</p>
-              <Link className="material-link" to="/oficina?preset=encontro-1#laboratorio">
-                começar →
-              </Link>
+              <p>
+                {progress.completed
+                  ? 'Concluída neste navegador.'
+                  : 'Personalizar o projeto inicial e testar as primeiras mudanças.'}
+              </p>
+              {progress.completed ? (
+                <span className="material-complete">concluída ✓</span>
+              ) : (
+                <Link
+                  className="material-link"
+                  to="/oficina?preset=encontro-1#laboratorio"
+                >
+                  começar →
+                </Link>
+              )}
             </article>
 
             <article>
@@ -533,12 +641,22 @@ function Workshop() {
               <span className="material-status">em preparação</span>
             </article>
           </div>
+
+          <div className="local-data-controls">
+            <p>
+              Progresso e código ficam apenas neste navegador. Use esta opção se
+              quiser limpar o Chromebook ao terminar.
+            </p>
+            <button type="button" onClick={clearLocalData}>
+              apagar dados deste navegador
+            </button>
+          </div>
         </section>
       </main>
 
       <footer className="workshop-footer workshop-container">
         <span>Programando o Futuro · 2026</span>
-        <span>sem login · sem rastreamento · direto no navegador</span>
+        <span>sem login · dados locais · direto no navegador</span>
       </footer>
     </div>
   )
