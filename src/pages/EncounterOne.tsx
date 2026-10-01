@@ -1,60 +1,61 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router'
+import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
-import PageMeta from '../components/PageMeta'
+import PageMeta from "../components/PageMeta";
 import {
   getEncounterOneProgress,
-  markEncounterOneStarted,
   saveEncounterOneProgress,
-} from '../lib/workshopStorage'
-import './EncounterOne.css'
+} from "../lib/workshopStorage";
+import "./EncounterOne.css";
 
 const missionItems = [
-  'mude o título',
-  'escolha outra cor',
-  'altere a mensagem do botão',
-  'faça mais uma mudança por conta própria',
-]
+  "mude o título",
+  "escolha outra cor",
+  "altere a mensagem do botão",
+  "faça mais uma mudança por conta própria",
+];
 
 function EncounterOne() {
-  const [progress, setProgress] = useState(getEncounterOneProgress)
+  const [progress, setProgress] = useState(() => ({
+    ...getEncounterOneProgress(),
+    started: true,
+  }));
 
   useEffect(() => {
-    const next = markEncounterOneStarted()
-    setProgress(next)
-  }, [])
+    saveEncounterOneProgress(progress);
+  }, [progress]);
 
-  const completedSteps = progress.checklist.filter(Boolean).length
-  const missionReady = completedSteps === missionItems.length
+  const completedSteps = progress.checklist.filter(Boolean).length;
+  const missionReady = completedSteps === missionItems.length;
 
   const toggleMissionItem = (index: number) => {
     setProgress((current) => {
-      const checklist = [...current.checklist]
-      checklist[index] = !checklist[index]
+      const checklist = [...current.checklist];
+      checklist[index] = !checklist[index];
 
       const next = {
         started: true,
         checklist,
         completed: current.completed && checklist.every(Boolean),
-      }
+      };
 
-      saveEncounterOneProgress(next)
-      return next
-    })
-  }
+      saveEncounterOneProgress(next);
+      return next;
+    });
+  };
 
   const completeEncounter = () => {
-    if (!missionReady) return
+    if (!missionReady) return;
 
     const next = {
       ...progress,
       started: true,
       completed: true,
-    }
+    };
 
-    saveEncounterOneProgress(next)
-    setProgress(next)
-  }
+    saveEncounterOneProgress(next);
+    setProgress(next);
+  };
 
   return (
     <div className="encounter-page">
@@ -71,9 +72,9 @@ function EncounterOne() {
           </Link>
 
           <div className="encounter-nav-right">
-            <span className={progress.completed ? 'progress-done' : ''}>
+            <span className={progress.completed ? "progress-done" : ""}>
               {progress.completed
-                ? '✓ concluído'
+                ? "✓ concluído"
                 : `${completedSteps}/${missionItems.length} da missão`}
             </span>
             <Link className="encounter-back" to="/oficina">
@@ -93,9 +94,9 @@ function EncounterOne() {
               <h1>Experimentar primeiro. Entender depois.</h1>
 
               <p className="encounter-lead">
-                Hoje você não precisa decorar nada. A ideia é mexer em um projeto
-                que já funciona, observar o que muda e descobrir como HTML, CSS e
-                JavaScript aparecem na prática.
+                Hoje você não precisa decorar nada. A ideia é mexer em um
+                projeto que já funciona, observar o que muda e descobrir como
+                HTML, CSS e JavaScript aparecem na prática.
               </p>
             </div>
 
@@ -129,8 +130,8 @@ function EncounterOne() {
               <div>
                 <h2>Mudar o conteúdo</h2>
                 <p>
-                  Troque o título e o texto da página. Essa é a primeira pista do
-                  que o HTML faz.
+                  Troque o título e o texto da página. Essa é a primeira pista
+                  do que o HTML faz.
                 </p>
               </div>
             </article>
@@ -151,8 +152,8 @@ function EncounterOne() {
               <div>
                 <h2>Fazer algo acontecer</h2>
                 <p>
-                  Clique no botão, leia o JavaScript e mude a mensagem que aparece
-                  depois do clique.
+                  Clique no botão, leia o JavaScript e mude a mensagem que
+                  aparece depois do clique.
                 </p>
               </div>
             </article>
@@ -170,15 +171,18 @@ function EncounterOne() {
           </div>
         </section>
 
-        <section className="cheatsheet-section encounter-container" id="colinha">
+        <section
+          className="cheatsheet-section encounter-container"
+          id="colinha"
+        >
           <div className="encounter-section-label">02 / colinha rápida</div>
 
           <div className="cheatsheet-content">
             <div className="cheatsheet-intro">
               <h2>Três ideias para consultar enquanto você mexe.</h2>
               <p>
-                Não é para decorar. É só um lugar rápido para olhar quando bater a
-                dúvida.
+                Não é para decorar. É só um lugar rápido para olhar quando bater
+                a dúvida.
               </p>
             </div>
 
@@ -186,10 +190,12 @@ function EncounterOne() {
               <article>
                 <span className="cheatsheet-language">HTML</span>
                 <h3>O que aparece na página.</h3>
-                <pre><code>{'<h1>Meu título</h1>\n<p>Meu texto</p>'}</code></pre>
+                <pre>
+                  <code>{"<h1>Meu título</h1>\n<p>Meu texto</p>"}</code>
+                </pre>
                 <p>
-                  Quer mudar uma frase? Normalmente você vai encontrar essa frase
-                  no HTML.
+                  Quer mudar uma frase? Normalmente você vai encontrar essa
+                  frase no HTML.
                 </p>
                 <Link to="/oficina?preset=html-basico#laboratorio">
                   testar HTML →
@@ -199,7 +205,9 @@ function EncounterOne() {
               <article>
                 <span className="cheatsheet-language">CSS</span>
                 <h3>Como a página fica.</h3>
-                <pre><code>{'background: #171321;\ncolor: #f8f4ff;'}</code></pre>
+                <pre>
+                  <code>{"background: #171321;\ncolor: #f8f4ff;"}</code>
+                </pre>
                 <p>
                   Cores, tamanho, espaço e formato ficam principalmente aqui.
                 </p>
@@ -211,7 +219,13 @@ function EncounterOne() {
               <article>
                 <span className="cheatsheet-language">JavaScript</span>
                 <h3>O que acontece.</h3>
-                <pre><code>{'botao.addEventListener(\'click\', () => {\n  resposta.textContent = \'Funcionou!\'\n})'}</code></pre>
+                <pre>
+                  <code>
+                    {
+                      "botao.addEventListener('click', () => {\n  resposta.textContent = 'Funcionou!'\n})"
+                    }
+                  </code>
+                </pre>
                 <p>
                   O JavaScript pode reagir a um clique e mudar alguma coisa na
                   página.
@@ -228,10 +242,14 @@ function EncounterOne() {
           <div className="encounter-container mission-grid">
             <div>
               <p className="encounter-path">~/missao-01</p>
-              <h2>Faça esse projeto deixar de ser o meu exemplo e virar o seu.</h2>
+              <h2>
+                Faça esse projeto deixar de ser o meu exemplo e virar o seu.
+              </h2>
 
               <div className="mission-progress">
-                <span>{completedSteps}/{missionItems.length}</span>
+                <span>
+                  {completedSteps}/{missionItems.length}
+                </span>
                 <progress value={completedSteps} max={missionItems.length} />
               </div>
             </div>
@@ -277,7 +295,10 @@ function EncounterOne() {
             <article>
               <span>HTML</span>
               <h3>Quer mudar o que está escrito?</h3>
-              <p>Procure pelo texto dentro de uma tag como &lt;h1&gt; ou &lt;p&gt;.</p>
+              <p>
+                Procure pelo texto dentro de uma tag como &lt;h1&gt; ou
+                &lt;p&gt;.
+              </p>
             </article>
 
             <article>
@@ -289,24 +310,28 @@ function EncounterOne() {
             <article>
               <span>JS</span>
               <h3>Quer mudar o clique?</h3>
-              <p>Procure pela frase que aparece depois que o botão é clicado.</p>
+              <p>
+                Procure pela frase que aparece depois que o botão é clicado.
+              </p>
             </article>
           </div>
         </section>
 
         <section className="encounter-end encounter-container">
           <div>
-            <span>{progress.completed ? 'encontro concluído ✓' : 'fim do encontro'}</span>
+            <span>
+              {progress.completed ? "encontro concluído ✓" : "fim do encontro"}
+            </span>
             <h2>
               {progress.completed
-                ? 'Você terminou o primeiro encontro.'
-                : 'Se você mudou o código e viu a tela responder, já começou.'}
+                ? "Você terminou o primeiro encontro."
+                : "Se você mudou o código e viu a tela responder, já começou."}
             </h2>
 
             {!progress.completed && (
               <p className="completion-hint">
                 {missionReady
-                  ? 'Missão pronta. Agora você pode concluir o encontro.'
+                  ? "Missão pronta. Agora você pode concluir o encontro."
                   : `Complete os ${missionItems.length} itens da Missão 01 para finalizar.`}
               </p>
             )}
@@ -341,7 +366,7 @@ function EncounterOne() {
         <span>progresso local · sem login</span>
       </footer>
     </div>
-  )
+  );
 }
 
-export default EncounterOne
+export default EncounterOne;

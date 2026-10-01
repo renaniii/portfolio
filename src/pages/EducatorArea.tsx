@@ -1,43 +1,43 @@
-import { useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router'
+import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router";
 
-import PageMeta from '../components/PageMeta'
-import './EducatorArea.css'
+import PageMeta from "../components/PageMeta";
+import "./EducatorArea.css";
 
-const TOTAL_SECONDS = 50 * 60
+const TOTAL_SECONDS = 50 * 60;
 
 function EducatorArea() {
-  const [secondsLeft, setSecondsLeft] = useState(TOTAL_SECONDS)
-  const [running, setRunning] = useState(false)
+  const [secondsLeft, setSecondsLeft] = useState(TOTAL_SECONDS);
+  const [running, setRunning] = useState(false);
 
   useEffect(() => {
-    if (!running) return
+    if (!running) return;
 
     const timer = window.setInterval(() => {
       setSecondsLeft((current) => {
         if (current <= 1) {
-          setRunning(false)
-          return 0
+          setRunning(false);
+          return 0;
         }
 
-        return current - 1
-      })
-    }, 1000)
+        return current - 1;
+      });
+    }, 1000);
 
-    return () => window.clearInterval(timer)
-  }, [running])
+    return () => window.clearInterval(timer);
+  }, [running]);
 
   const clock = useMemo(() => {
-    const minutes = Math.floor(secondsLeft / 60)
-    const seconds = secondsLeft % 60
+    const minutes = Math.floor(secondsLeft / 60);
+    const seconds = secondsLeft % 60;
 
-    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
-  }, [secondsLeft])
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  }, [secondsLeft]);
 
   const resetTimer = () => {
-    setRunning(false)
-    setSecondsLeft(TOTAL_SECONDS)
-  }
+    setRunning(false);
+    setSecondsLeft(TOTAL_SECONDS);
+  };
 
   return (
     <div className="educator-page">
@@ -62,9 +62,9 @@ function EducatorArea() {
             <span className="educator-kicker">ENCONTRO 01 · APOIO DE SALA</span>
             <h1>Uma tela para quem está conduzindo.</h1>
             <p>
-              Esta área não acompanha estudantes e não recebe respostas da turma.
-              Ela existe só para deixar roteiro, links e tempo do encontro em um
-              lugar rápido durante a aula.
+              Este guia é público. Não acompanha estudantes e não recebe
+              respostas da turma. Ela existe só para deixar roteiro, links e
+              tempo do encontro em um lugar rápido durante a aula.
             </p>
           </div>
 
@@ -72,8 +72,15 @@ function EducatorArea() {
             <span>cronômetro · 50 min</span>
             <strong>{clock}</strong>
             <div>
-              <button type="button" onClick={() => setRunning((value) => !value)}>
-                {running ? 'pausar' : secondsLeft === TOTAL_SECONDS ? 'iniciar' : 'continuar'}
+              <button
+                type="button"
+                onClick={() => setRunning((value) => !value)}
+              >
+                {running
+                  ? "pausar"
+                  : secondsLeft === TOTAL_SECONDS
+                    ? "iniciar"
+                    : "continuar"}
               </button>
               <button type="button" onClick={resetTimer}>
                 zerar
@@ -199,7 +206,9 @@ function EducatorArea() {
             </label>
             <label>
               <input type="checkbox" />
-              <span>confirmar que o projetor mostra código e resultado legíveis</span>
+              <span>
+                confirmar que o projetor mostra código e resultado legíveis
+              </span>
             </label>
             <label>
               <input type="checkbox" />
@@ -221,14 +230,14 @@ function EducatorArea() {
 
             <div>
               <p>
-                A plataforma não centraliza nomes, códigos, progresso ou atividade
-                das participantes. Para saber como a turma está, a observação em
-                sala continua sendo o principal instrumento.
+                A plataforma não centraliza nomes, códigos, progresso ou
+                atividade das participantes. Para saber como a turma está, a
+                observação em sala continua sendo o principal instrumento.
               </p>
               <p>
-                Mais para frente, esta área vai receber seus materiais de condução:
-                roteiro de fala, plano de aula, exemplos para projetar e plano B
-                para cada etapa.
+                Mais para frente, esta área vai receber seus materiais de
+                condução: roteiro de fala, plano de aula, exemplos para projetar
+                e plano B para cada etapa.
               </p>
             </div>
           </div>
@@ -239,11 +248,11 @@ function EducatorArea() {
         <span>Programando o Futuro · apoio do educador</span>
         <div className="educator-footer-actions">
           <Link to="/oficina/privacidade">privacidade</Link>
-          <a href="/oficina/educador?logout=1">sair</a>
+          <Link to="/oficina">voltar à oficina</Link>
         </div>
       </footer>
     </div>
-  )
+  );
 }
 
-export default EducatorArea
+export default EducatorArea;

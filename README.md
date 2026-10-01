@@ -1,53 +1,62 @@
 # Renan Amador — Portfólio
 
-Portfólio pessoal desenvolvido com React, TypeScript e Vite. O projeto apresenta trabalhos selecionados, stack, interesses técnicos e estudos de caso.
+Portfólio pessoal com React, TypeScript e Vite. Tema escuro com roxo, projetos, apresentação e link público do GitHub. Inclui a plataforma Programando o Futuro, ainda em preparação.
 
-## Destaque
+## Começar no seu computador
 
-O primeiro case é **Programando o Futuro: elas na tecnologia**, uma iniciativa educacional de introdução à programação com experiência web, foco em privacidade, acessibilidade e aprendizagem prática.
-
-## Stack
-
-- React
-- TypeScript
-- Vite
-- CSS
-- React Router
-
-## Desenvolvimento local
+Use Node.js 22.12 ou superior compatível com as versões do projeto.
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Build de produção:
+Abra o endereço que o terminal mostrar. Para verificar antes de publicar:
 
 ```bash
+npm run lint
 npm run build
-```
-
-Pré-visualização do build:
-
-```bash
 npm run preview
 ```
 
+`preview` não reproduz os cabeçalhos da Vercel. Depois de publicar, faça também os testes descritos em `ATUALIZAR.md`.
+
+## Onde editar
+
+| Conteúdo | Arquivo |
+| --- | --- |
+| Nome, resumo, GitHub, tecnologias e lista de projetos | `src/data/portfolio.ts` |
+| Estrutura e textos adicionais da página inicial | `src/App.tsx` |
+| Cores, espaçamentos e visual responsivo da home | `src/App.css` |
+| Estudo de caso do projeto | `src/pages/ProgramandoFuturo.tsx` |
+| Exemplos e editor da oficina | `src/pages/Workshop.tsx` |
+| Domínio e metadados das páginas | `src/data/portfolio.ts` e `src/components/PageMeta.tsx` |
+| Metadados iniciais para buscadores e redes sociais | `index.html` |
+| Lista pública para buscadores | `public/sitemap.xml` |
+| Regras da hospedagem atual | `vercel.json` |
+
+Mantenha `origin`, os links absolutos em `index.html`, `robots.txt` e `sitemap.xml` consistentes se trocar de domínio. A versão atual usa `https://www.renanamador.dev`, considerando o redirecionamento do domínio raiz para www.
+
 ## Rotas
 
-- `/` — página inicial
-- `/projetos/programando-o-futuro` — case do projeto de extensão
-- qualquer rota inexistente — página 404 personalizada
+- `/`: portfólio
+- `/projetos/programando-o-futuro`: apresentação do projeto
+- `/oficina`: laboratório e materiais
+- `/oficina/encontro-1`: atividade guiada
+- `/oficina/privacidade`: explicação dos dados locais
+- `/oficina/educador`: **guia público**, sem dados de estudantes e sem autenticação
+- Outras URLs: tela de página não encontrada (fallback SPA; pode retornar HTTP 200).
 
-## Antes de publicar
+## Privacidade e limites
 
-1. Substitua os links temporários de GitHub, LinkedIn e e-mail em `src/App.tsx` pelos seus dados reais.
-2. Depois de escolher o domínio, troque as URLs sociais/canônicas por URLs absolutas no `index.html`.
-3. Rode `npm run build` e teste o conteúdo de `dist/` com `npm run preview`.
-4. Em hospedagens estáticas, mantenha o fallback SPA de `public/_redirects` ou configure uma regra equivalente.
+A aplicação não inclui analytics, anúncios, cadastro ou banco de dados. Rascunhos e progresso ficam em localStorage, têm validade de 12 horas e são descartados na leitura após esse prazo; não são apagados com a página fechada. Use o botão de apagar dados em computadores compartilhados. Se o navegador impedir gravações, o editor continua funcionando, mas é preciso exportar para guardar o trabalho.
 
-O projeto já inclui favicon, web manifest, imagem Open Graph, 404 personalizada, metadata por rota e navegação interna via React Router.
+O editor usa iframes com `sandbox="allow-scripts"`, sem `allow-same-origin`, e uma política de conteúdo própria. Isso limita acesso ao portfólio e conexões externas; não torna seguro executar qualquer código arbitrário. Código com loops infinitos pode travar a aba. A infraestrutura de hospedagem ainda processa informações técnicas de conexão.
 
----
+`vercel.json` define CSP, restrições de permissões, regras de indexação da oficina e proteção contra enquadramento. A página de preview precisa de uma política diferente para executar exemplos dentro do sandbox. **Não aplique a CSP da home ao preview.**
 
-Desenvolvido por Renan Amador.
+Os arquivos `public/_headers`, `public/_redirects` e `netlify/` são legados da hospedagem anterior, preservados para referência. Eles **não configuram a Vercel**. O login antigo da Netlify não protege nenhuma rota na Vercel; o guia do educador contém somente conteúdo público. Nunca coloque documentos, senhas ou informações de alunas no frontend.
+
+## Atualização
+
+Siga `ATUALIZAR.md`. Não envie `node_modules`, `.env` ou credenciais para o GitHub. O arquivo de dependências travadas (`package-lock.json`) deve acompanhar `package.json`.

@@ -1,3 +1,3 @@
 User-agent: *
-Disallow: /oficina
 Allow: /
+Sitemap: https://www.renanamador.dev/sitemap.xml

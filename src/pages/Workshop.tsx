@@ -1,42 +1,43 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { Link, useSearchParams } from 'react-router'
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Link, useSearchParams } from "react-router";
 
-import PageMeta from '../components/PageMeta'
+import PageMeta from "../components/PageMeta";
 import {
   clearLabDraft,
   clearWorkshopProgress,
   getEncounterOneProgress,
   getLabDraft,
   saveLabDraft,
-} from '../lib/workshopStorage'
-import './Workshop.css'
+} from "../lib/workshopStorage";
+import "./Workshop.css";
 
-type EditorTab = 'html' | 'css' | 'js'
-type PresetKey = 'base' | 'encontro-1' | 'html-basico' | 'css-basico' | 'js-basico'
+type EditorTab = "html" | "css" | "js";
+type PresetKey =
+  "base" | "encontro-1" | "html-basico" | "css-basico" | "js-basico";
 
 type LabPreset = {
-  label: string
-  instruction: string
-  html: string
-  css: string
-  js: string
-  tab: EditorTab
-  filename: string
-}
+  label: string;
+  instruction: string;
+  html: string;
+  css: string;
+  js: string;
+  tab: EditorTab;
+  filename: string;
+};
 
 type LabState = {
-  presetKey: PresetKey
-  html: string
-  css: string
-  js: string
-}
+  presetKey: PresetKey;
+  html: string;
+  css: string;
+  js: string;
+};
 
 const presets: Record<PresetKey, LabPreset> = {
   base: {
-    label: 'projeto livre',
-    instruction: 'Mexa no código, observe o resultado e teste suas ideias.',
-    tab: 'html',
-    filename: 'meu-projeto.html',
+    label: "projeto livre",
+    instruction: "Mexa no código, observe o resultado e teste suas ideias.",
+    tab: "html",
+    filename: "meu-projeto.html",
     html: `<main class="card">
   <p class="tag">meu primeiro projeto</p>
   <h1>Olá, mundo!</h1>
@@ -82,12 +83,12 @@ botao.addEventListener('click', () => {
 })`,
   },
 
-  'encontro-1': {
-    label: 'missão 01',
+  "encontro-1": {
+    label: "missão 01",
     instruction:
-      'Mude um texto, uma cor e a mensagem do botão. Depois faça mais uma alteração por conta própria.',
-    tab: 'html',
-    filename: 'missao-01.html',
+      "Mude um texto, uma cor e a mensagem do botão. Depois faça mais uma alteração por conta própria.",
+    tab: "html",
+    filename: "missao-01.html",
     html: `<main class="cartao">
   <p class="etiqueta">meu primeiro site</p>
   <h1>Oi! Eu criei essa página.</h1>
@@ -150,12 +151,12 @@ botao.addEventListener('click', () => {
 })`,
   },
 
-  'html-basico': {
-    label: 'exemplo de HTML',
+  "html-basico": {
+    label: "exemplo de HTML",
     instruction:
-      'Troque o título e o parágrafo. Depois adicione mais uma linha com uma tag <p>.',
-    tab: 'html',
-    filename: 'exemplo-html.html',
+      "Troque o título e o parágrafo. Depois adicione mais uma linha com uma tag <p>.",
+    tab: "html",
+    filename: "exemplo-html.html",
     html: `<main>
   <h1>Meu primeiro título</h1>
   <p>Esse texto veio do HTML.</p>
@@ -179,15 +180,15 @@ main {
 button {
   padding: 10px 14px;
 }`,
-    js: '',
+    js: "",
   },
 
-  'css-basico': {
-    label: 'exemplo de CSS',
+  "css-basico": {
+    label: "exemplo de CSS",
     instruction:
-      'Mude background, color e border-radius. Veja cada mudança aparecer na hora.',
-    tab: 'css',
-    filename: 'exemplo-css.html',
+      "Mude background, color e border-radius. Veja cada mudança aparecer na hora.",
+    tab: "css",
+    filename: "exemplo-css.html",
     html: `<main class="caixa">
   <h1>CSS muda a aparência.</h1>
   <p>Teste outras cores, tamanhos e formas.</p>
@@ -212,15 +213,15 @@ button {
 h1 {
   font-size: 32px;
 }`,
-    js: '',
+    js: "",
   },
 
-  'js-basico': {
-    label: 'exemplo de JavaScript',
+  "js-basico": {
+    label: "exemplo de JavaScript",
     instruction:
-      'Clique no botão e depois troque a frase dentro de textContent.',
-    tab: 'js',
-    filename: 'exemplo-javascript.html',
+      "Clique no botão e depois troque a frase dentro de textContent.",
+    tab: "js",
+    filename: "exemplo-javascript.html",
     html: `<main>
   <h1>JavaScript faz coisas acontecerem.</h1>
   <button id="teste">testar</button>
@@ -257,64 +258,61 @@ botao.addEventListener('click', () => {
   resposta.textContent = 'Funcionou! O JavaScript mudou a página.'
 })`,
   },
-}
+};
 
 const loadLabState = (presetKey: PresetKey): LabState => {
-  const preset = presets[presetKey]
-  const draft = getLabDraft(presetKey)
+  const preset = presets[presetKey];
+  const draft = getLabDraft(presetKey);
 
   return {
     presetKey,
     html: draft?.html ?? preset.html,
     css: draft?.css ?? preset.css,
     js: draft?.js ?? preset.js,
-  }
-}
+  };
+};
 
 function Workshop() {
-  const [searchParams] = useSearchParams()
-  const presetParam = searchParams.get('preset')
+  const [searchParams] = useSearchParams();
+  const presetParam = searchParams.get("preset");
   const presetKey: PresetKey =
-    presetParam && presetParam in presets ? (presetParam as PresetKey) : 'base'
-  const preset = presets[presetKey]
+    presetParam && Object.hasOwn(presets, presetParam)
+      ? (presetParam as PresetKey)
+      : "base";
+  return <WorkshopContent key={presetKey} presetKey={presetKey} />;
+}
 
-  const [tab, setTab] = useState<EditorTab>(preset.tab)
-  const [lab, setLab] = useState<LabState>(() => loadLabState(presetKey))
-  const [progress, setProgress] = useState(getEncounterOneProgress)
-
-  useEffect(() => {
-    if (lab.presetKey === presetKey) return
-
-    const next = loadLabState(presetKey)
-    setLab(next)
-    setTab(preset.tab)
-  }, [lab.presetKey, preset, presetKey])
+function WorkshopContent({ presetKey }: { presetKey: PresetKey }) {
+  const preset = presets[presetKey];
+  const [tab, setTab] = useState<EditorTab>(preset.tab);
+  const [lab, setLab] = useState<LabState>(() => loadLabState(presetKey));
+  const [progress, setProgress] = useState(getEncounterOneProgress);
 
   useEffect(() => {
-    if (lab.presetKey !== presetKey) return
+    if (lab.presetKey !== presetKey) return;
 
     const saveTimer = window.setTimeout(() => {
       saveLabDraft(presetKey, {
         html: lab.html,
         css: lab.css,
         js: lab.js,
-      })
-    }, 350)
+      });
+    }, 350);
 
-    return () => window.clearTimeout(saveTimer)
-  }, [lab, presetKey])
+    return () => window.clearTimeout(saveTimer);
+  }, [lab, presetKey]);
 
   useEffect(() => {
-    if (!window.location.hash) return
+    if (!window.location.hash) return;
 
-    const id = window.location.hash.slice(1)
+    const id = window.location.hash.slice(1);
     window.requestAnimationFrame(() => {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-    })
-  }, [presetKey])
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    });
+  }, [presetKey]);
 
   const preview = useMemo(() => {
-    const safeJs = lab.js.replace(/<\/script/gi, '<\\/script')
+    const safeJs = lab.js.replace(/<\/script/gi, "<\\/script");
 
     return `<!doctype html>
 <html lang="pt-BR">
@@ -333,87 +331,95 @@ function Workshop() {
     try {
       ${safeJs}
     } catch (error) {
-      document.body.insertAdjacentHTML(
-        'beforeend',
-        '<pre style="color:#ff8fa3;padding:16px;font:12px monospace">' +
-          String(error) +
-          '</pre>',
-      )
+      const message = document.createElement('pre')
+      message.textContent = String(error)
+      document.body.appendChild(message)
     }
-  <\/script>
+  </script>
 </body>
-</html>`
-  }, [lab.css, lab.html, lab.js])
+</html>`;
+  }, [lab.css, lab.html, lab.js]);
 
-  const previewFrame = useRef<HTMLIFrameElement>(null)
+  const previewFrame = useRef<HTMLIFrameElement>(null);
 
-  const sendPreview = () => {
+  const sendPreview = useCallback(() => {
     previewFrame.current?.contentWindow?.postMessage(
       {
-        type: 'workshop-preview',
+        type: "workshop-preview",
         html: preview,
       },
-      '*',
-    )
-  }
+      "*",
+    );
+  }, [preview]);
 
   useEffect(() => {
-    const previewTimer = window.setTimeout(sendPreview, 180)
-    return () => window.clearTimeout(previewTimer)
-  }, [preview])
+    const handleReady = (event: MessageEvent) => {
+      if (
+        event.source === previewFrame.current?.contentWindow &&
+        event.data?.type === "workshop-preview-ready"
+      )
+        sendPreview();
+    };
+    window.addEventListener("message", handleReady);
+    const previewTimer = window.setTimeout(sendPreview, 180);
+    return () => {
+      window.clearTimeout(previewTimer);
+      window.removeEventListener("message", handleReady);
+    };
+  }, [sendPreview]);
 
   const resetProject = () => {
-    clearLabDraft(presetKey)
+    clearLabDraft(presetKey);
     setLab({
       presetKey,
       html: preset.html,
       css: preset.css,
       js: preset.js,
-    })
-    setTab(preset.tab)
-  }
+    });
+    setTab(preset.tab);
+  };
 
   const exportProject = () => {
-    const file = new Blob([preview], { type: 'text/html;charset=utf-8' })
-    const url = URL.createObjectURL(file)
-    const link = document.createElement('a')
+    const file = new Blob([preview], { type: "text/html;charset=utf-8" });
+    const url = URL.createObjectURL(file);
+    const link = document.createElement("a");
 
-    link.href = url
-    link.download = preset.filename
-    link.click()
+    link.href = url;
+    link.download = preset.filename;
+    link.click();
 
-    URL.revokeObjectURL(url)
-  }
+    URL.revokeObjectURL(url);
+  };
 
   const clearLocalData = () => {
     const confirmed = window.confirm(
-      'Apagar o progresso e os códigos salvos neste navegador?',
-    )
+      "Apagar o progresso e os códigos salvos neste navegador?",
+    );
 
-    if (!confirmed) return
+    if (!confirmed) return;
 
-    clearWorkshopProgress()
-    setProgress(getEncounterOneProgress())
+    clearWorkshopProgress();
+    setProgress(getEncounterOneProgress());
     setLab({
       presetKey,
       html: preset.html,
       css: preset.css,
       js: preset.js,
-    })
-    setTab(preset.tab)
-  }
+    });
+    setTab(preset.tab);
+  };
 
   const currentValue =
-    tab === 'html' ? lab.html : tab === 'css' ? lab.css : lab.js
+    tab === "html" ? lab.html : tab === "css" ? lab.css : lab.js;
 
   const setCurrentValue = (value: string) => {
     setLab((current) => ({
       ...current,
       [tab]: value,
-    }))
-  }
+    }));
+  };
 
-  const completedSteps = progress.checklist.filter(Boolean).length
+  const completedSteps = progress.checklist.filter(Boolean).length;
 
   return (
     <div className="workshop-page">
@@ -473,15 +479,15 @@ function Workshop() {
             <div>
               <span>progresso neste navegador</span>
               <p>
-                Encontro 01 ·{' '}
+                Encontro 01 ·{" "}
                 {progress.completed
-                  ? 'concluído ✓'
+                  ? "concluído ✓"
                   : `${completedSteps}/4 itens da missão`}
               </p>
             </div>
 
             <Link to="/oficina/encontro-1">
-              {progress.completed ? 'rever encontro →' : 'continuar →'}
+              {progress.completed ? "rever encontro →" : "continuar →"}
             </Link>
           </section>
         )}
@@ -495,27 +501,27 @@ function Workshop() {
           <div className="meeting-cards">
             <article className="meeting-card-active">
               <span className="meeting-number">
-                {progress.completed ? '✓' : '01'}
+                {progress.completed ? "✓" : "01"}
               </span>
               <div>
                 <p>
                   {progress.completed
-                    ? 'concluído neste navegador'
+                    ? "concluído neste navegador"
                     : progress.started
                       ? `${completedSteps}/4 da missão · em andamento`
-                      : 'primeiro contato · disponível'}
+                      : "primeiro contato · disponível"}
                 </p>
                 <h3>Experimentar</h3>
                 <span>
-                  Mudar coisas prontas, ver o resultado e entender o que o código
-                  está fazendo.
+                  Mudar coisas prontas, ver o resultado e entender o que o
+                  código está fazendo.
                 </span>
                 <Link className="meeting-open" to="/oficina/encontro-1">
                   {progress.completed
-                    ? 'rever encontro 01 →'
+                    ? "rever encontro 01 →"
                     : progress.started
-                      ? 'continuar encontro 01 →'
-                      : 'abrir encontro 01 →'}
+                      ? "continuar encontro 01 →"
+                      : "abrir encontro 01 →"}
                 </Link>
               </div>
             </article>
@@ -553,16 +559,17 @@ function Workshop() {
             </div>
 
             <p className="lab-intro">
-              Mude o código do lado esquerdo. O resultado aparece do lado direito
-              depois de uma pausa curtinha, para o editor ficar mais estável nos
-              Chromebooks. Suas alterações ficam salvas somente neste navegador.
+              Mude o código do lado esquerdo. O resultado aparece do lado
+              direito depois de uma pausa curtinha, para o editor ficar mais
+              estável nos Chromebooks. Suas alterações ficam salvas somente
+              neste navegador.
             </p>
 
-            {presetKey !== 'base' && (
+            {presetKey !== "base" && (
               <div className="lab-mission">
                 <span>{preset.label} carregado</span>
                 <p>{preset.instruction}</p>
-                {presetKey === 'encontro-1' ? (
+                {presetKey === "encontro-1" ? (
                   <Link to="/oficina/encontro-1">ver encontro ↑</Link>
                 ) : (
                   <Link to="/oficina/encontro-1#colinha">ver colinha ↑</Link>
@@ -572,22 +579,26 @@ function Workshop() {
 
             <div className="lab-window">
               <div className="lab-toolbar">
-                <div className="editor-tabs" role="tablist" aria-label="Arquivos do projeto">
-                  {(['html', 'css', 'js'] as EditorTab[]).map((item) => (
+                <div
+                  className="editor-tabs"
+                  role="tablist"
+                  aria-label="Arquivos do projeto"
+                >
+                  {(["html", "css", "js"] as EditorTab[]).map((item) => (
                     <button
-                      className={tab === item ? 'active' : ''}
+                      className={tab === item ? "active" : ""}
                       key={item}
                       onClick={() => setTab(item)}
                       role="tab"
                       aria-selected={tab === item}
                     >
-                      {item === 'js' ? 'script.js' : `index.${item}`}
+                      {item === "js" ? "script.js" : `index.${item}`}
                     </button>
                   ))}
                 </div>
 
                 <div className="lab-actions">
-                  <span className="autosave-label">salvo localmente</span>
+                  <span className="autosave-label">rascunho no navegador</span>
                   <button onClick={resetProject}>restaurar</button>
                   <button className="export-button" onClick={exportProject}>
                     salvar .html
@@ -618,7 +629,6 @@ function Workshop() {
                     referrerPolicy="no-referrer"
                     allow="camera 'none'; microphone 'none'; geolocation 'none'; fullscreen 'none'"
                     src="/workshop-preview.html"
-                    onLoad={sendPreview}
                   />
                 </div>
               </div>
@@ -651,8 +661,8 @@ function Workshop() {
               </div>
               <p>
                 {progress.completed
-                  ? 'Concluída neste navegador.'
-                  : 'Personalizar o projeto inicial e testar as primeiras mudanças.'}
+                  ? "Concluída neste navegador."
+                  : "Personalizar o projeto inicial e testar as primeiras mudanças."}
               </p>
               {progress.completed ? (
                 <span className="material-complete">concluída ✓</span>
@@ -671,7 +681,10 @@ function Workshop() {
                 <span>próximos encontros</span>
                 <h3>Mais materiais</h3>
               </div>
-              <p>Novas colinhas e missões entram aqui conforme os encontros forem montados.</p>
+              <p>
+                Novas colinhas e missões entram aqui conforme os encontros forem
+                montados.
+              </p>
               <span className="material-status">em preparação</span>
             </article>
           </div>
@@ -698,7 +711,7 @@ function Workshop() {
         <span>sem login · dados locais · direto no navegador</span>
       </footer>
     </div>
-  )
+  );
 }
 
-export default Workshop
+export default Workshop;

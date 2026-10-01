@@ -1,7 +1,7 @@
-import { Link } from 'react-router'
+import { Link } from "react-router";
 
-import PageMeta from '../components/PageMeta'
-import './WorkshopPrivacy.css'
+import PageMeta from "../components/PageMeta";
+import "./WorkshopPrivacy.css";
 
 function WorkshopPrivacy() {
   return (
@@ -45,10 +45,11 @@ function WorkshopPrivacy() {
           <div>
             <h2>O que fica no navegador</h2>
             <p>
-              O progresso do Encontro 1 e os códigos digitados no laboratório são
-              salvos localmente para evitar perder o trabalho ao recarregar a
-              página. Esses dados expiram automaticamente em até 12 horas e podem
-              ser apagados antes disso pela própria plataforma.
+              O progresso do Encontro 1 e os códigos digitados no laboratório
+              são salvos localmente para evitar perder o trabalho ao recarregar
+              a página. Os registros têm validade de 12 horas e são descartados
+              quando lidos após esse prazo. Fechar a página não apaga os dados.
+              Você pode apagá-los antes pela própria plataforma.
             </p>
           </div>
         </section>
@@ -63,9 +64,9 @@ function WorkshopPrivacy() {
               página principal, à câmera, ao microfone ou à localização.
             </p>
             <p>
-              O preview também bloqueia conexões externas por padrão, para que os
-              exemplos da oficina funcionem sem enviar o código para serviços de
-              terceiros.
+              O preview também bloqueia conexões externas por padrão, para que
+              os exemplos da oficina funcionem sem enviar o código para serviços
+              de terceiros.
             </p>
           </div>
         </section>
@@ -77,8 +78,9 @@ function WorkshopPrivacy() {
             <p>
               Como qualquer site publicado na internet, a infraestrutura de
               hospedagem precisa processar informações técnicas necessárias para
-              entregar a página, como a conexão feita pelo navegador. A aplicação
-              da oficina não usa esses dados para criar perfis das participantes.
+              entregar a página, como a conexão feita pelo navegador. A
+              aplicação da oficina não usa esses dados para criar perfis das
+              participantes.
             </p>
           </div>
         </section>
@@ -89,8 +91,8 @@ function WorkshopPrivacy() {
             <h2>Antes de sair de um Chromebook compartilhado</h2>
             <p>
               Se o computador for usado por outra pessoa depois da oficina, use
-              “apagar dados deste navegador” na página principal da oficina. Isso
-              remove o progresso e os rascunhos guardados pela plataforma.
+              “apagar dados deste navegador” na página principal da oficina.
+              Isso remove o progresso e os rascunhos guardados pela plataforma.
             </p>
             <Link className="privacy-action" to="/oficina#materiais">
               voltar e gerenciar dados →
@@ -104,7 +106,7 @@ function WorkshopPrivacy() {
         <span>mínimo de dados · sem login</span>
       </footer>
     </div>
-  )
+  );
 }
 
-export default WorkshopPrivacy
+export default WorkshopPrivacy;
