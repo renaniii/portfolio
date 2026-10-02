@@ -6,6 +6,7 @@
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
+    <link rel="stylesheet" href="/boot.css" />
 
     <meta
       name="description"
@@ -53,7 +54,31 @@
     <title>Renan Amador — Desenvolvimento web e educação</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <main class="boot-fallback" role="status" aria-live="polite">
+        <div class="boot-fallback__panel">
+          <p class="boot-fallback__eyebrow">RENANAMADOR.DEV</p>
+          <h1>Preparando o site…</h1>
+          <p>
+            Se esta mensagem continuar aparecendo por alguns segundos, o
+            navegador pode não ter conseguido iniciar a aplicação.
+          </p>
+          <p class="boot-fallback__help">
+            Você ainda pode abrir o guia simples da oficina, que não depende da
+            aplicação em React.
+          </p>
+          <a href="/materiais/guia-oficina.html">
+            Abrir guia simples da oficina
+          </a>
+          <noscript>
+            <p class="boot-fallback__warning">
+              JavaScript está desativado neste navegador. Ative-o para usar a
+              plataforma interativa.
+            </p>
+          </noscript>
+        </div>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
