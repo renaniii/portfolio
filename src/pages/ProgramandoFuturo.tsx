@@ -1,14 +1,15 @@
-import { Link } from 'react-router'
+import { workshop } from "../data/workshop";
+import { Link } from "react-router";
 
-import PageMeta from '../components/PageMeta'
-import './ProgramandoFuturo.css'
+import PageMeta from "../components/PageMeta";
+import "./ProgramandoFuturo.css";
 
 function ProgramandoFuturo() {
   return (
     <div className="case-page">
       <PageMeta
         title="Programando o Futuro — Renan Amador"
-        description="Projeto de extensão de Renan Amador: uma oficina introdutória de programação para alunas do ensino médio."
+        description="Projeto de extensão de Renan Amador: uma oficina introdutória de programação para estudantes do ensino médio, independentemente de gênero."
         canonicalPath="/projetos/programando-o-futuro"
       />
 
@@ -39,13 +40,15 @@ function ProgramandoFuturo() {
           <h1>
             Programando o Futuro:
             <br />
-            <span>elas na tecnologia</span>
+            <span>{workshop.subtitle}</span>
           </h1>
 
           <p className="case-lead">
-            Meu projeto de extensão para apresentar programação a alunas do
+            Meu projeto de extensão para apresentar programação a estudantes do
             ensino médio em três encontros curtos, usando os Chromebooks da
-            própria escola e sem depender de instalação de programas.
+            própria escola e sem depender de instalação de programas. A
+            participação é aberta a todos os gêneros e não exige experiência
+            prévia.
           </p>
 
           <div className="case-hero-actions">
@@ -61,7 +64,7 @@ function ProgramandoFuturo() {
             </div>
             <div>
               <dt>duração</dt>
-              <dd>50 min cada</dd>
+              <dd>cerca de 50 min cada</dd>
             </div>
             <div>
               <dt>dispositivos</dt>
@@ -69,23 +72,40 @@ function ProgramandoFuturo() {
             </div>
             <div>
               <dt>status</dt>
-              <dd><span className="status-dot" /> em preparação</dd>
+              <dd>
+                <span className="status-dot" /> em preparação
+              </dd>
             </div>
           </dl>
         </section>
 
-        <section className="case-terminal case-container" aria-label="Resumo técnico do projeto">
+        <section
+          className="case-terminal case-container"
+          aria-label="Resumo técnico do projeto"
+        >
           <div className="terminal-title">
             <span>planejamento.txt</span>
             <span>projeto_01</span>
           </div>
 
           <div className="terminal-body">
-            <p><span>objetivo:</span> tornar o primeiro contato com programação menos distante</p>
-            <p><span>limite:</span> usar somente o navegador</p>
-            <p><span>ferramentas:</span> HTML + CSS + JavaScript</p>
-            <p><span>material:</span> site próprio + editor + atividades da oficina</p>
-            <p><span>dados:</span> evitar cadastro e coleta desnecessária</p>
+            <p>
+              <span>objetivo:</span> tornar o primeiro contato com programação
+              menos distante
+            </p>
+            <p>
+              <span>limite:</span> usar somente o navegador
+            </p>
+            <p>
+              <span>ferramentas:</span> HTML + CSS + JavaScript
+            </p>
+            <p>
+              <span>material:</span> site próprio + editor + atividades da
+              oficina
+            </p>
+            <p>
+              <span>dados:</span> evitar cadastro e coleta desnecessária
+            </p>
           </div>
         </section>
 
@@ -93,7 +113,10 @@ function ProgramandoFuturo() {
           <div className="case-section-label">01 / por que</div>
 
           <div className="case-copy">
-            <h2>Esse projeto nasceu justamente porque eu estudo duas áreas bem diferentes.</h2>
+            <h2>
+              Esse projeto nasceu justamente porque eu estudo duas áreas bem
+              diferentes.
+            </h2>
 
             <p>
               Ciência da Computação e Pedagogia quase sempre aparecem separadas
@@ -103,9 +126,11 @@ function ProgramandoFuturo() {
             </p>
 
             <p>
-              Eu não quero que a oficina vire uma sequência de conceitos para
-              decorar. Quero que elas mexam, quebrem, mudem, vejam o resultado e
-              percebam que conseguem criar alguma coisa.
+              A oficina busca ampliar o acesso à programação e questionar a
+              ideia de que tecnologia é para um único perfil de pessoa. Eu não
+              quero que ela vire uma sequência de conceitos para decorar. Quero
+              que cada participante experimente, modifique o código, veja o
+              resultado e perceba que consegue criar alguma coisa.
             </p>
           </div>
         </section>
@@ -119,8 +144,9 @@ function ProgramandoFuturo() {
               <div>
                 <h3>Primeiro contato</h3>
                 <p>
-                  Entender o que código faz mexendo em exemplos que já funcionam.
-                  A ideia é reduzir o medo antes de explicar muita teoria.
+                  Conhecer cinco contribuições à história da computação em
+                  cinco minutos e depois experimentar HTML, CSS e JavaScript
+                  em um exemplo que já funciona.
                 </p>
               </div>
             </article>
@@ -130,8 +156,8 @@ function ProgramandoFuturo() {
               <div>
                 <h3>Construir</h3>
                 <p>
-                  Usar HTML, CSS e JavaScript para montar algo próprio, ainda com
-                  orientação e exemplos por perto.
+                  Usar HTML, CSS e JavaScript para montar algo próprio, ainda
+                  com orientação e exemplos por perto.
                 </p>
               </div>
             </article>
@@ -167,7 +193,9 @@ function ProgramandoFuturo() {
             </div>
             <div>
               <span>privacidade</span>
-              <p>Evitar login, nomes completos e armazenamento sem necessidade.</p>
+              <p>
+                Evitar login, nomes completos e armazenamento sem necessidade.
+              </p>
             </div>
           </div>
         </section>
@@ -180,9 +208,9 @@ function ProgramandoFuturo() {
 
             <p>
               Não dá para pensar a oficina como se cada participante estivesse
-              num computador pessoal configurado para desenvolvimento. O ambiente
-              real são Chromebooks escolares, tempo curto e uma turma começando
-              do zero.
+              num computador pessoal configurado para desenvolvimento. O
+              ambiente real são Chromebooks escolares, tempo curto e uma turma
+              começando do zero.
             </p>
 
             <p>
@@ -204,10 +232,13 @@ function ProgramandoFuturo() {
               <p>
                 O site da oficina, os materiais e o roteiro dos encontros ainda
                 estão sendo refinados. Depois da realização, quero voltar aqui e
-                registrar o que funcionou, o que não funcionou e o que eu mudaria.
+                registrar o que funcionou, o que não funcionou e o que eu
+                mudaria.
               </p>
 
-              <p className="tech-line">React / TypeScript / CSS / Git / navegador</p>
+              <p className="tech-line">
+                React / TypeScript / CSS / Git / navegador
+              </p>
 
               <Link to="/">← voltar ao portfólio</Link>
             </div>
@@ -220,7 +251,7 @@ function ProgramandoFuturo() {
         <span>Projeto de Extensão I</span>
       </footer>
     </div>
-  )
+  );
 }
 
-export default ProgramandoFuturo
+export default ProgramandoFuturo;

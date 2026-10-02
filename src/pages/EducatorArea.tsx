@@ -63,7 +63,7 @@ function EducatorArea() {
             <h1>Uma tela para quem está conduzindo.</h1>
             <p>
               Este guia é público. Não acompanha estudantes e não recebe
-              respostas da turma. Ela existe só para deixar roteiro, links e
+              respostas da turma. Ele existe só para deixar roteiro, links e
               tempo do encontro em um lugar rápido durante a aula.
             </p>
           </div>
@@ -93,10 +93,20 @@ function EducatorArea() {
           <div className="educator-label">01 / abrir rápido</div>
 
           <div className="educator-links">
+            <Link to="/oficina/historia-da-computacao">
+              <span>contexto · 5 min</span>
+              <strong>Pessoas que fizeram história na computação</strong>
+              <small>uma ideia de cada pessoa, seguida de prática →</small>
+            </Link>
+            <a href="/materiais/guia-oficina.html">
+              <span>material</span>
+              <strong>Guia dos três encontros</strong>
+              <small>roteiros, desafios e participação equilibrada →</small>
+            </a>
             <Link to="/oficina/encontro-1">
               <span>roteiro</span>
               <strong>Encontro 1</strong>
-              <small>página que as alunas também podem consultar →</small>
+              <small>página que estudantes também podem consultar →</small>
             </Link>
 
             <Link to="/oficina?preset=encontro-1#laboratorio">
@@ -136,57 +146,46 @@ function EducatorArea() {
 
           <div className="educator-timeline">
             <article>
-              <span>00–05</span>
+              <span>00–03</span>
               <div>
-                <h2>Apresentar a ideia</h2>
-                <p>
-                  Mostrar que ninguém precisa saber programar antes de começar.
-                  Abrir o laboratório e deixar o resultado visível.
-                </p>
+                <h2>Acolher a turma</h2>
+                <p>Ninguém precisa chegar sabendo. Converse sobre o que a turma gostaria de criar e combine a alternância do teclado nas duplas.</p>
               </div>
             </article>
-
             <article>
-              <span>05–15</span>
+              <span>03–08</span>
               <div>
-                <h2>HTML</h2>
-                <p>
-                  Alterar um título e um parágrafo junto com a turma. Evitar
-                  aprofundar em sintaxe agora.
-                </p>
+                <h2>Pessoas por trás da tecnologia</h2>
+                <p>Conheça cinco contribuições à computação em uma conversa de cinco minutos. Não é para memorizar datas: escolha uma ideia que chamou sua atenção.</p>
+                <Link to="/oficina/historia-da-computacao">conhecer essas pessoas →</Link>
               </div>
             </article>
-
             <article>
-              <span>15–25</span>
+              <span>08–15</span>
               <div>
-                <h2>CSS</h2>
-                <p>
-                  Mudar fundo, cor e formato. O foco é perceber a relação entre
-                  código e resultado.
-                </p>
+                <h2>Ver uma mudança acontecer</h2>
+                <p>Abra o exemplo e acompanhe uma mudança de texto, cor e mensagem do botão. Observe HTML, CSS e JavaScript trabalhando juntos.</p>
               </div>
             </article>
-
             <article>
-              <span>25–35</span>
+              <span>15–35</span>
               <div>
-                <h2>JavaScript</h2>
-                <p>
-                  Fazer um clique alterar a página e mostrar que código também
-                  pode reagir ao que a pessoa faz.
-                </p>
+                <h2>Experimentar na Missão 01</h2>
+                <p>Mude um texto, uma cor e a mensagem do botão, testando uma alteração por vez. Em dupla, troque quem digita e quem revisa.</p>
               </div>
             </article>
-
             <article>
-              <span>35–50</span>
+              <span>35–45</span>
               <div>
-                <h2>Missão 01</h2>
-                <p>
-                  Circular pela sala, ajudar quem travar e deixar espaço para
-                  personalização. Não precisa terminar todo mundo igual.
-                </p>
+                <h2>Criar do seu jeito</h2>
+                <p>Escolha um tema e faça mais uma mudança por conta própria. Peça ajuda quando precisar e explique o que tentou.</p>
+              </div>
+            </article>
+            <article>
+              <span>45–50</span>
+              <div>
+                <h2>Compartilhar e guardar</h2>
+                <p>Mostre uma mudança, conte em qual parte do código mexeu e guarde o projeto para o próximo encontro.</p>
               </div>
             </article>
           </div>
@@ -225,19 +224,20 @@ function EducatorArea() {
           <div className="educator-container educator-note-grid">
             <div>
               <p className="educator-path">~/importante</p>
-              <h2>Sem painel de alunas de propósito.</h2>
+              <h2>Sem painel de estudantes de propósito.</h2>
             </div>
 
             <div>
               <p>
                 A plataforma não centraliza nomes, códigos, progresso ou
-                atividade das participantes. Para saber como a turma está, a
+                atividade de quem participa. Para saber como a turma está, a
                 observação em sala continua sendo o principal instrumento.
               </p>
               <p>
-                Mais para frente, esta área vai receber seus materiais de
-                condução: roteiro de fala, plano de aula, exemplos para projetar
-                e plano B para cada etapa.
+                Alterne quem digita e quem revisa nas duplas. Convide diferentes
+                estudantes a falar e intervenha em comentários que desestimulem
+                alguém por gênero ou experiência. O guia dos três encontros
+                reúne desafios e um plano B.
               </p>
             </div>
           </div>

@@ -115,57 +115,46 @@ function EncounterOne() {
 
           <div className="timeline">
             <article>
-              <span>00–05</span>
+              <span>00–03</span>
               <div>
-                <h2>Olhar antes de mexer</h2>
-                <p>
-                  Abra o projeto e veja como ele está dividido em HTML, CSS e
-                  JavaScript. Sem preocupação em entender tudo.
-                </p>
+                <h2>Acolher a turma</h2>
+                <p>Ninguém precisa chegar sabendo. Converse sobre o que a turma gostaria de criar e combine a alternância do teclado nas duplas.</p>
               </div>
             </article>
-
             <article>
-              <span>05–15</span>
+              <span>03–08</span>
               <div>
-                <h2>Mudar o conteúdo</h2>
-                <p>
-                  Troque o título e o texto da página. Essa é a primeira pista
-                  do que o HTML faz.
-                </p>
+                <h2>Pessoas por trás da tecnologia</h2>
+                <p>Conheça cinco contribuições à computação em uma conversa de cinco minutos. Não é para memorizar datas: escolha uma ideia que chamou sua atenção.</p>
+                <Link to="/oficina/historia-da-computacao">conhecer essas pessoas →</Link>
               </div>
             </article>
-
             <article>
-              <span>15–25</span>
+              <span>08–15</span>
               <div>
-                <h2>Mudar a aparência</h2>
-                <p>
-                  Teste outra cor de fundo, outra cor de texto e um tamanho
-                  diferente. Aqui entra o CSS.
-                </p>
+                <h2>Ver uma mudança acontecer</h2>
+                <p>Abra o exemplo e acompanhe uma mudança de texto, cor e mensagem do botão. Observe HTML, CSS e JavaScript trabalhando juntos.</p>
               </div>
             </article>
-
             <article>
-              <span>25–35</span>
+              <span>15–35</span>
               <div>
-                <h2>Fazer algo acontecer</h2>
-                <p>
-                  Clique no botão, leia o JavaScript e mude a mensagem que
-                  aparece depois do clique.
-                </p>
+                <h2>Experimentar na Missão 01</h2>
+                <p>Mude um texto, uma cor e a mensagem do botão, testando uma alteração por vez. Em dupla, troque quem digita e quem revisa.</p>
               </div>
             </article>
-
             <article>
-              <span>35–50</span>
+              <span>35–45</span>
               <div>
-                <h2>Missão 01</h2>
-                <p>
-                  Personalize o cartão até ele parecer seu. Não precisa ficar
-                  perfeito — precisa ser diferente do exemplo inicial.
-                </p>
+                <h2>Criar do seu jeito</h2>
+                <p>Escolha um tema e faça mais uma mudança por conta própria. Peça ajuda quando precisar e explique o que tentou.</p>
+              </div>
+            </article>
+            <article>
+              <span>45–50</span>
+              <div>
+                <h2>Compartilhar e guardar</h2>
+                <p>Mostre uma mudança, conte em qual parte do código mexeu e guarde o projeto para o próximo encontro.</p>
               </div>
             </article>
           </div>
