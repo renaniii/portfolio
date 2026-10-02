@@ -609,3 +609,6 @@
     flex-direction: column;
   }
 }
+
+.timeline a { display: inline-block; padding-block: 10px; color: var(--e-purple-2); text-underline-offset: 4px; }
+.timeline a:focus-visible { outline: 2px solid var(--e-purple); outline-offset: 4px; }

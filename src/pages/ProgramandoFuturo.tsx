@@ -64,7 +64,7 @@ function ProgramandoFuturo() {
             </div>
             <div>
               <dt>duração</dt>
-              <dd>50 min cada</dd>
+              <dd>cerca de 50 min cada</dd>
             </div>
             <div>
               <dt>dispositivos</dt>
@@ -130,7 +130,7 @@ function ProgramandoFuturo() {
               ideia de que tecnologia é para um único perfil de pessoa. Eu não
               quero que ela vire uma sequência de conceitos para decorar. Quero
               que cada participante experimente, modifique o código, veja o
-              resultado e percebam que conseguem criar alguma coisa.
+              resultado e perceba que consegue criar alguma coisa.
             </p>
           </div>
         </section>
@@ -144,9 +144,9 @@ function ProgramandoFuturo() {
               <div>
                 <h3>Primeiro contato</h3>
                 <p>
-                  Entender o que código faz mexendo em exemplos que já
-                  funcionam. A ideia é reduzir o medo antes de explicar muita
-                  teoria.
+                  Conhecer cinco contribuições à história da computação em
+                  cinco minutos e depois experimentar HTML, CSS e JavaScript
+                  em um exemplo que já funciona.
                 </p>
               </div>
             </article>

@@ -1,10 +1,11 @@
-# Programando o Futuro — Primeiros passos na programação
+# Programando o Futuro — primeiros passos na programação
 
 Versão ampliada para estudantes do ensino médio, independentemente de gênero, com ou sem experiência. O nome principal e o endereço `/oficina` permanecem.
 
 ## O que está pronto
 
 - Site com apresentação inclusiva, atividades e guia público dos três encontros.
+- `/oficina/historia-da-computacao`: contexto de cinco minutos antes da prática, com fontes.
 - `PROJETO.md`: objetivos, metodologia, avaliação e acompanhamento.
 - `FORMS.md`: perguntas, avisos e confirmação da inscrição, prontos para copiar.
 - `COMUNICACAO.md`: mensagens para escola, mediação acadêmica e divulgação.
@@ -20,7 +21,7 @@ Versão ampliada para estudantes do ensino médio, independentemente de gênero,
 5. Combinar com a escola quem gerencia inscrições, como comunica a confirmação e quando exclui a lista após cumprir as exigências institucionais.
 6. Divulgar para todas as turmas elegíveis, sem depender somente do link. Fazer uma demonstração breve em sala, com autorização da escola, e explicar que não é necessário saber programar.
 
-O Google Forms existente e documentos oficiais da faculdade não foram editados por esta alteração no repositório. Precisam ser fornecidos separadamente para revisão. Inscrição, reserva de vaga e participação efetiva são etapas diferentes.
+O Forms examinado é uma sondagem inicial sem identificação, não uma inscrição. Seus textos foram adaptados; o cabeçalho antigo ainda precisa ser substituído pelo novo banner. O modelo de inscrição em `FORMS.md` é separado. Documentos oficiais da faculdade precisam ser conferidos com a mediação. Inscrição, reserva de vaga e participação efetiva são etapas diferentes.
 
 ## Lista antes do primeiro encontro
 

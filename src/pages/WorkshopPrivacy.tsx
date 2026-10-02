@@ -26,8 +26,8 @@ function WorkshopPrivacy() {
         <p className="privacy-lead">
           O laboratório foi feito para funcionar com o mínimo de dados possível.
           Um formulário de inscrição, se usado pela escola, é separado e deve
-          informar seus próprios campos e responsáveis. Ela não precisa saber
-          quem você é para ensinar programação.
+          informar seus próprios campos e responsáveis. O laboratório não precisa
+          identificar você para ensinar programação.
         </p>
 
         <section>
@@ -81,7 +81,7 @@ function WorkshopPrivacy() {
               Como qualquer site publicado na internet, a infraestrutura de
               hospedagem precisa processar informações técnicas necessárias para
               entregar a página, como a conexão feita pelo navegador. A
-              aplicação da oficina não usa esses dados para criar perfis das
+              aplicação da oficina não usa esses dados para criar perfis de
               participantes.
             </p>
           </div>

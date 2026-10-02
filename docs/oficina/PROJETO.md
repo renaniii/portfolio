@@ -1,8 +1,8 @@
 # Proposta revisada de extensão
 
-**Título:** Programando o Futuro: Primeiros passos na programação.
+**Título:** Programando o Futuro: primeiros passos na programação.
 
-**Situação:** proposta ampliada; confirmar calendário e validação institucional. Este texto é uma base de planejamento, não comprovação de execução ou aceite da faculdade.
+**Situação:** oficina ainda não iniciada, conforme atualização do proponente. Público ampliado; novas datas e validação institucional a confirmar. Este texto é uma base de planejamento, não comprovação de execução ou aceite da faculdade.
 
 ## Público e justificativa
 
@@ -32,7 +32,7 @@ Três encontros de 50 minutos, um por semana, totalizando 150 minutos de ativida
 
 Aprendizagem pela criação de uma página interativa sobre tema livre: música, jogos, leitura, esporte, ciência, arte ou uma ideia útil à comunidade escolar. Os temas não são distribuídos por gênero. A demonstração é curta e seguida de prática; não se espera decorar comandos.
 
-- Encontro 1: experimentar exemplos e modificar texto, cor e mensagem do botão.
+- Encontro 1: acolhimento (0–3 min), contexto histórico com cinco pessoas (3–8 min), demonstração (8–15 min), prática guiada (15–35 min), personalização (35–45 min) e compartilhamento/guardar projeto (45–50 min). A contextualização antecede a prática e não exige memorização de biografias.
 - Encontro 2: construir uma página com um propósito, personalizando estrutura, visual e interação.
 - Encontro 3: testar em dupla, melhorar legibilidade e apresentar o que foi criado.
 

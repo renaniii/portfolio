@@ -1,6 +1,6 @@
 # Inscrição — conteúdo para o Google Forms
 
-Documento pronto para adaptação ao formulário existente. Os campos entre colchetes precisam ser preenchidos com a escola antes da divulgação. Não há link de inscrição configurado no site porque o endereço do formulário não foi fornecido.
+Modelo de inscrição separado da sondagem inicial já revisada. Não transforme respostas anônimas em inscrições identificadas. Os campos entre colchetes precisam ser preenchidos com a escola antes da divulgação. O site não inclui link de inscrição enquanto esse fluxo não for definido.
 
 ## Título
 
@@ -8,7 +8,7 @@ Programando o Futuro — Inscrição na oficina de programação
 
 ## Descrição
 
-Quer criar uma página que muda quando você clica em um botão? Na oficina Programando o Futuro: Primeiros passos na programação, você vai experimentar HTML, CSS e JavaScript e criar um projeto sobre um tema de que gosta.
+Quer criar uma página que muda quando você clica em um botão? Na oficina Programando o Futuro: primeiros passos na programação, você vai experimentar HTML, CSS e JavaScript e criar um projeto sobre um tema de que gosta.
 
 A atividade é aberta a estudantes do ensino médio de todos os gêneros. Não precisa saber programar, ter computador próprio nem instalar programas. Usaremos os Chromebooks da escola, individualmente ou em duplas, conforme a disponibilidade.
 

@@ -43,6 +43,7 @@ Mantenha `origin`, os links absolutos em `index.html`, `robots.txt` e `sitemap.x
 - `/projetos/programando-o-futuro`: apresentação do projeto
 - `/oficina`: laboratório e materiais
 - `/oficina/encontro-1`: atividade guiada
+- `/oficina/historia-da-computacao`: cinco perfis curtos para a abertura do primeiro encontro
 - `/oficina/privacidade`: explicação dos dados locais
 - `/oficina/educador`: **guia público**, sem dados de estudantes e sem autenticação
 - Outras URLs: tela de página não encontrada (fallback SPA; pode retornar HTTP 200).
@@ -63,4 +64,4 @@ Siga `ATUALIZAR.md`. Não envie `node_modules`, `.env` ou credenciais para o Git
 
 ## Oficina para todos os estudantes
 
-Identidade compartilhada em `src/data/workshop.ts`. Materiais de planejamento, inscrição, comunicação e registros em `docs/oficina/LEIA-PRIMEIRO.md`. Guia público e imprimível em `/materiais/guia-oficina.html`. O editor permite guardar e abrir projetos `.json` localmente, para continuar entre semanas. Datas, capacidade e validação institucional precisam de confirmação; o Forms externo ainda precisa ser editado.
+Identidade compartilhada em `src/data/workshop.ts`. Materiais de planejamento, inscrição, comunicação e registros em `docs/oficina/LEIA-PRIMEIRO.md`. Guia público e imprimível em `/materiais/guia-oficina.html`. O editor permite guardar e abrir projetos `.json` localmente, para continuar entre semanas. Datas, capacidade e validação institucional precisam de confirmação; a sondagem inicial no Forms é separada da inscrição e seu banner ainda precisa ser substituído.

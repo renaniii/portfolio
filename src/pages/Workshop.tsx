@@ -588,8 +588,8 @@ function WorkshopContent({ presetKey }: { presetKey: PresetKey }) {
                 </p>
                 <h3>Experimentar</h3>
                 <span>
-                  Mudar coisas prontas, ver o resultado e entender o que o
-                  código está fazendo.
+                  Conhecer pessoas que contribuíram para a computação e depois
+                  mudar código, observar o resultado e criar algo seu.
                 </span>
                 <Link className="meeting-open" to="/oficina/encontro-1">
                   {progress.completed
@@ -762,6 +762,11 @@ function WorkshopContent({ presetKey }: { presetKey: PresetKey }) {
           </div>
 
           <div className="materials-list">
+            <article>
+              <div><span>contexto · 5 min</span><h3>Pessoas que fizeram história na computação</h3></div>
+              <p>Cinco contribuições para conhecer antes de criar sua página.</p>
+              <Link className="material-link" to="/oficina/historia-da-computacao">conhecer →</Link>
+            </article>
             <article>
               <div>
                 <span>guia</span>
