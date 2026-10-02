@@ -132,10 +132,11 @@ function App() {
                     <span>programando o futuro</span>
                     <span>↗</span>
                   </div>
-                  <div className="art-code">&lt;elas&gt;</div>
+                  <div className="art-code">&lt;criar&gt;</div>
                   <p>
-                    O futuro também
-                    <br />é escrito por elas.
+                    Sua ideia pode
+                    <br />
+                    virar código.
                   </p>
                   <div className="art-tags">
                     <span>HTML</span>

@@ -24,8 +24,10 @@ function WorkshopPrivacy() {
         <h1>Privacidade sem complicação.</h1>
 
         <p className="privacy-lead">
-          A plataforma foi feita para funcionar com o mínimo de dados possível.
-          Ela não precisa saber quem você é para ensinar programação.
+          O laboratório foi feito para funcionar com o mínimo de dados possível.
+          Um formulário de inscrição, se usado pela escola, é separado e deve
+          informar seus próprios campos e responsáveis. Ela não precisa saber
+          quem você é para ensinar programação.
         </p>
 
         <section>

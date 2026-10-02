@@ -1,3 +1,4 @@
+import { workshop } from "./workshop";
 // Edite aqui o conteúdo da página inicial. Publique apenas informações públicas.
 export const portfolio = {
   name: "Renan Amador",
@@ -13,8 +14,8 @@ export const portfolio = {
       id: "programando-o-futuro",
       number: "01",
       category: "TECNOLOGIA + EDUCAÇÃO",
-      title: "Programando o Futuro",
-      subtitle: "elas na tecnologia",
+      title: workshop.title,
+      subtitle: workshop.subtitle,
       status: "Em preparação",
       description:
         "Uma plataforma para experimentar programação no navegador. Reúne atividades guiadas e um laboratório de HTML, CSS e JavaScript, sem cadastro de estudantes.",

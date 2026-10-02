@@ -1,3 +1,4 @@
+import { workshop } from "../data/workshop";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 
@@ -391,6 +392,77 @@ function WorkshopContent({ presetKey }: { presetKey: PresetKey }) {
     URL.revokeObjectURL(url);
   };
 
+  const [fileMessage, setFileMessage] = useState("");
+  const importInput = useRef<HTMLInputElement>(null);
+
+  const saveEditableProject = () => {
+    const data = {
+      format: "programando-futuro",
+      version: 1,
+      html: lab.html,
+      css: lab.css,
+      js: lab.js,
+    };
+    const file = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    if (file.size > 500_000) {
+      setFileMessage("O projeto ultrapassou 500 KB. Reduza o código antes de guardar um arquivo que possa ser reaberto.");
+      return;
+    }
+    const url = URL.createObjectURL(file);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "meu-projeto.json";
+    link.click();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setFileMessage(
+      "Download solicitado. Guarde o arquivo .json para continuar no próximo encontro.",
+    );
+  };
+
+  const importEditableProject = async (file: File | undefined) => {
+    if (!file) return;
+    if (file.size > 500_000) {
+      setFileMessage(
+        "Esse arquivo é muito grande. Escolha um projeto .json de até 500 KB.",
+      );
+      return;
+    }
+    try {
+      const data: unknown = JSON.parse(await file.text());
+      if (
+        !data ||
+        typeof data !== "object" ||
+        !("format" in data) ||
+        data.format !== "programando-futuro" ||
+        !("version" in data) ||
+        data.version !== 1 ||
+        !("html" in data) ||
+        typeof data.html !== "string" ||
+        !("css" in data) ||
+        typeof data.css !== "string" ||
+        !("js" in data) ||
+        typeof data.js !== "string"
+      ) {
+        throw new Error("Formato inválido");
+      }
+      if (
+        !window.confirm(
+          "Abrir este arquivo substitui o código atual deste exemplo. Você já guardou o que deseja manter?",
+        )
+      )
+        return;
+      setLab({ presetKey, html: data.html, css: data.css, js: data.js });
+      setTab("html");
+      setFileMessage(
+        "Projeto aberto neste navegador. O arquivo não foi enviado ao servidor.",
+      );
+    } catch {
+      setFileMessage(
+        "Não foi possível abrir. Escolha o arquivo .json criado por ‘guardar projeto’, não o HTML.",
+      );
+    }
+  };
+
   const clearLocalData = () => {
     const confirmed = window.confirm(
       "Apagar o progresso e os códigos salvos neste navegador?",
@@ -425,7 +497,7 @@ function WorkshopContent({ presetKey }: { presetKey: PresetKey }) {
     <div className="workshop-page">
       <PageMeta
         title="Programando o Futuro — Oficina"
-        description="Plataforma da oficina Programando o Futuro: elas na tecnologia."
+        description="Plataforma da oficina Programando o Futuro: primeiros passos na programação."
         canonicalPath="/oficina"
       />
 
@@ -447,7 +519,9 @@ function WorkshopContent({ presetKey }: { presetKey: PresetKey }) {
       <main>
         <section className="workshop-hero workshop-container" id="inicio">
           <div className="workshop-hero-copy">
-            <p className="workshop-path">~/oficina/inicio</p>
+            <p className="workshop-path">
+              {workshop.title} · {workshop.subtitle}
+            </p>
             <h1>
               Bora criar
               <br />
@@ -455,9 +529,8 @@ function WorkshopContent({ presetKey }: { presetKey: PresetKey }) {
             </h1>
 
             <p>
-              Este é o espaço da oficina. Aqui você encontra os encontros, testa
-              código no navegador e acessa os materiais sem precisar instalar
-              nada.
+              {workshop.audience} Aqui você testa código, escolhe um tema de que
+              gosta e cria uma página interativa. {workshop.format}
             </p>
 
             <a className="workshop-start" href="#encontros">
@@ -468,8 +541,10 @@ function WorkshopContent({ presetKey }: { presetKey: PresetKey }) {
           <aside className="privacy-note">
             <span>privacidade</span>
             <p>
-              Não pedimos nome, e-mail ou conta. O laboratório roda no próprio
-              navegador e não envia seu código para um servidor.
+              Neste laboratório não pedimos nome, e-mail ou conta. Eventuais
+              inscrições são organizadas separadamente pela escola. O
+              laboratório roda no próprio navegador e não envia seu código para
+              um servidor.
             </p>
           </aside>
         </section>
@@ -526,26 +601,39 @@ function WorkshopContent({ presetKey }: { presetKey: PresetKey }) {
               </div>
             </article>
 
-            <article className="meeting-card-locked">
+            <article className="meeting-card-active">
               <span className="meeting-number">02</span>
               <div>
-                <p>mão na massa · em preparação</p>
+                <p>mão na massa · roteiro disponível</p>
                 <h3>Criar</h3>
                 <span>
-                  Juntar HTML, CSS e JavaScript para montar um projeto próprio.
+                  Juntar HTML, CSS e JavaScript em uma página sobre um tema de
+                  sua escolha.
                 </span>
+                <a
+                  className="meeting-open"
+                  href={`${workshop.guide}#encontro-2`}
+                >
+                  abrir roteiro 02 →
+                </a>
               </div>
             </article>
 
-            <article className="meeting-card-locked">
+            <article className="meeting-card-active">
               <span className="meeting-number">03</span>
               <div>
-                <p>acabamento · em preparação</p>
+                <p>testar e apresentar · roteiro disponível</p>
                 <h3>Compartilhar</h3>
                 <span>
                   Ajustar o projeto, entender as escolhas e mostrar o que foi
                   construído.
                 </span>
+                <a
+                  className="meeting-open"
+                  href={`${workshop.guide}#encontro-3`}
+                >
+                  abrir roteiro 03 →
+                </a>
               </div>
             </article>
           </div>
@@ -577,6 +665,37 @@ function WorkshopContent({ presetKey }: { presetKey: PresetKey }) {
               </div>
             )}
 
+            <div className="project-file-tools">
+              <p>
+                Para continuar em outra semana, guarde o projeto e reabra o
+                arquivo no próximo encontro.
+              </p>
+              <div>
+                <button type="button" onClick={saveEditableProject}>
+                  guardar projeto (.json)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => importInput.current?.click()}
+                >
+                  abrir projeto (.json)
+                </button>
+                <input
+                  ref={importInput}
+                  type="file"
+                  accept=".json,application/json"
+                  hidden
+                  aria-label="Arquivo de projeto"
+                  onChange={(event) => {
+                    void importEditableProject(event.target.files?.[0]);
+                    event.target.value = "";
+                  }}
+                />
+              </div>
+              <p role="status" aria-live="polite">
+                {fileMessage}
+              </p>
+            </div>
             <div className="lab-window">
               <div className="lab-toolbar">
                 <div
@@ -678,22 +797,24 @@ function WorkshopContent({ presetKey }: { presetKey: PresetKey }) {
 
             <article>
               <div>
-                <span>próximos encontros</span>
-                <h3>Mais materiais</h3>
+                <span>guia completo</span>
+                <h3>Três encontros, um projeto</h3>
               </div>
               <p>
-                Novas colinhas e missões entram aqui conforme os encontros forem
-                montados.
+                Roteiros, desafios, exemplos e orientações para criar e
+                apresentar sua página interativa.
               </p>
-              <span className="material-status">em preparação</span>
+              <a className="material-link" href={workshop.guide}>
+                abrir guia →
+              </a>
             </article>
           </div>
 
           <div className="local-data-controls">
             <p>
-              Progresso e código ficam apenas neste navegador e expiram
-              automaticamente após 12 horas. Use esta opção se quiser limpar o
-              Chromebook antes disso.
+              Progresso e código ficam neste navegador, com validade de 12
+              horas. Registros vencidos são descartados quando lidos novamente.
+              Apague os dados antes de devolver um Chromebook compartilhado.
             </p>
             <button type="button" onClick={clearLocalData}>
               apagar dados deste navegador

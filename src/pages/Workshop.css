@@ -683,3 +683,9 @@
     display: none;
   }
 }
+
+.project-file-tools { padding: 18px 20px; margin-bottom: 20px; border: 1px solid #b99bff30; border-radius: 10px; background: #b99bff08; }
+.project-file-tools p { color: #c2bbce; font-size: 13px; line-height: 1.7; }
+.project-file-tools div { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+.project-file-tools button { border:1px solid #b99bff50; border-radius:6px; padding:12px 15px; background:#21192f; color:#e4d8ff; cursor:pointer; }
+.project-file-tools [role="status"]:not(:empty) { margin-top:12px; }

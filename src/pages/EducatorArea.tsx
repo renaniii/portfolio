@@ -93,10 +93,15 @@ function EducatorArea() {
           <div className="educator-label">01 / abrir rápido</div>
 
           <div className="educator-links">
+            <a href="/materiais/guia-oficina.html">
+              <span>material</span>
+              <strong>Guia dos três encontros</strong>
+              <small>roteiros, desafios e participação equilibrada →</small>
+            </a>
             <Link to="/oficina/encontro-1">
               <span>roteiro</span>
               <strong>Encontro 1</strong>
-              <small>página que as alunas também podem consultar →</small>
+              <small>página que estudantes também podem consultar →</small>
             </Link>
 
             <Link to="/oficina?preset=encontro-1#laboratorio">
@@ -225,19 +230,20 @@ function EducatorArea() {
           <div className="educator-container educator-note-grid">
             <div>
               <p className="educator-path">~/importante</p>
-              <h2>Sem painel de alunas de propósito.</h2>
+              <h2>Sem painel de estudantes de propósito.</h2>
             </div>
 
             <div>
               <p>
                 A plataforma não centraliza nomes, códigos, progresso ou
-                atividade das participantes. Para saber como a turma está, a
+                atividade de quem participa. Para saber como a turma está, a
                 observação em sala continua sendo o principal instrumento.
               </p>
               <p>
-                Mais para frente, esta área vai receber seus materiais de
-                condução: roteiro de fala, plano de aula, exemplos para projetar
-                e plano B para cada etapa.
+                Alterne quem digita e quem revisa nas duplas. Convide diferentes
+                estudantes a falar e intervenha em comentários que desestimulem
+                alguém por gênero ou experiência. O guia dos três encontros
+                reúne desafios e um plano B.
               </p>
             </div>
           </div>
